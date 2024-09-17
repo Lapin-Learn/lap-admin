@@ -7,7 +7,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@assets/*": ["./public/assets/*"],
+      "@app/*": ["./src/app/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/lib/utils/*"],
     }
   }
 }

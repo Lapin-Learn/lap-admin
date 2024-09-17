@@ -1,20 +1,26 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
+import React, { Suspense } from "react";
 
-export const Route = createRootRoute({
+const TanStackRouterDevtools = import.meta.env.PROD
+  ? () => null // Render nothing in production
+  : React.lazy(() =>
+      // Lazy load in development
+      import("@tanstack/router-devtools").then((res) => ({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        default: res.TanStackRouterDevtools,
+        // For Embedded Mode
+        // default: res.TanStackRouterDevtoolsPanel
+      }))
+    );
+
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: () => (
-    <>
-      <div className="flex gap-2 p-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>{" "}
-        <Link to="/about" className="[&.active]:font-bold">
-          About
-        </Link>
-      </div>
-      <hr />
+    <main>
       <Outlet />
-      <TanStackRouterDevtools />
-    </>
+      <Suspense>
+        <TanStackRouterDevtools />
+      </Suspense>
+    </main>
   ),
 });
