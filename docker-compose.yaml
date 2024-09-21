@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: lapin-admin
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./dist:/usr/share/nginx/html
+    restart: always
