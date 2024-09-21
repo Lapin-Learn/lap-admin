@@ -1,4 +1,11 @@
-import { createLesson, getLessonsOfQuestionType, getQuestionTypes, LessonList } from "@/services";
+import {
+  createLesson,
+  createQuestionType,
+  getLessonsOfQuestionType,
+  getQuestionTypes,
+  LessonList,
+  QuestionTypeList,
+} from "@/services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const QuestionTypeKeys = {
@@ -37,6 +44,24 @@ export const useCreateLesson = (questionType: number) => {
         return {
           ...oldData,
           [returnData.bandScore]: [...oldData[returnData.bandScore], returnData],
+        };
+      });
+    },
+  });
+};
+
+export const useCreateQuestionType = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createQuestionType,
+    onSuccess: (returnData) => {
+      queryClient.setQueryData(QuestionTypeKeys.list(), (oldData: QuestionTypeList) => {
+        if (oldData[returnData.skill] === undefined) {
+          oldData[returnData.skill] = [];
+        }
+        return {
+          ...oldData,
+          [returnData.skill]: [...oldData[returnData.skill], returnData],
         };
       });
     },

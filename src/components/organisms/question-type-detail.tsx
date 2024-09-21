@@ -4,13 +4,29 @@ import { Accordion, AccordionContent, AccordionTrigger, AccordionItem } from "..
 import { bandScores } from "@/lib/consts";
 import { Badge } from "../ui/badge";
 import { useSearch } from "@tanstack/react-router";
-import { useGetLessonsOfQuestionType } from "@/hooks/react-query/useDailyLessons";
-import { EnumBandScore } from "@/lib/enums";
+import {
+  useGetLessonsOfQuestionType,
+  useGetQuestionTypes,
+} from "@/hooks/react-query/useDailyLessons";
+import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import LessonListTable from "./lesson-list-table";
+import { useMemo } from "react";
+import { QuestionType } from "@/services";
+import dayjs from "dayjs";
 
 export default function QuestionTypeDetail() {
-  const { questionType } = useSearch({ strict: false });
-  const { data: lessons } = useGetLessonsOfQuestionType(questionType);
+  const { questionType: questionTypeId, skill } = useSearch({ strict: false });
+  const { data: lessons } = useGetLessonsOfQuestionType(questionTypeId);
+  const { data: questionTypes } = useGetQuestionTypes();
+  const questionType: QuestionType | null = useMemo(() => {
+    if (questionTypes) {
+      return (
+        questionTypes[skill as keyof typeof EnumSkill].find((qt) => qt.id === questionTypeId) ||
+        null
+      );
+    }
+    return null;
+  }, [questionTypes, questionTypeId, skill]);
   if (lessons)
     return (
       <div>
@@ -22,8 +38,10 @@ export default function QuestionTypeDetail() {
           />
           <div className="w-full flex-1">
             <div className="flex items-baseline justify-between">
-              <h5 className="text-2xl font-semibold">Matching headings</h5>
-              <p className="text-sm text-muted-foreground">Last update: 23/8/24</p>
+              <h5 className="text-2xl font-semibold">{questionType?.name}</h5>
+              <p className="text-sm text-muted-foreground">
+                Last update: {dayjs(questionType?.updatedAt).format("MM/DD/YY")}
+              </p>
             </div>
             <div className="mt-4 flex flex-row gap-4">
               <Button variant="secondary">View instructions</Button>{" "}
@@ -49,7 +67,7 @@ export default function QuestionTypeDetail() {
               <AccordionContent>
                 <LessonListTable
                   data={lessons[bandScore as EnumBandScore] ?? []}
-                  questionTypeId={questionType}
+                  questionTypeId={questionTypeId}
                   bandScore={bandScore}
                 />
               </AccordionContent>

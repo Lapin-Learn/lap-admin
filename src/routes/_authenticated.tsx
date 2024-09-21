@@ -13,7 +13,7 @@ const AuthenticatedPage = () => {
 };
 
 export const Route = createFileRoute("/_authenticated")({
-  beforeLoad: async ({ context: { queryClient } }) => {
+  beforeLoad: async ({ location, context: { queryClient } }) => {
     try {
       const user = await queryClient?.ensureQueryData({
         queryKey: authKeys.detail(),
@@ -24,6 +24,7 @@ export const Route = createFileRoute("/_authenticated")({
         signOut();
         return redirect({ to: "/log-in" });
       }
+      if (location.href == "/") return redirect({ to: "/daily-lessons" });
       return true;
     } catch (e) {
       console.error(e);

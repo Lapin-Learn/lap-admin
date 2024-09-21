@@ -11,10 +11,12 @@ import { EnumSkill } from "@/lib/enums";
 import { useGetQuestionTypes } from "@/hooks/react-query/useDailyLessons";
 import { Button } from "../ui/button";
 import QuestionTypeDetail from "../organisms/question-type-detail";
-import { Link } from "@tanstack/react-router";
+import { Link, useSearch } from "@tanstack/react-router";
+import CreateQuestionTypeDialog from "../organisms/create-question-type-dialog";
 
 export default function DailyLessonsPage() {
   const skills = Object.keys(EnumSkill);
+  const { questionType: questionTypeId, skill } = useSearch({ strict: false });
   const { data: questionTypes } = useGetQuestionTypes();
 
   return (
@@ -42,9 +44,7 @@ export default function DailyLessonsPage() {
                   <Search size={16} />
                 </button>
               </div>
-              <Button size="sm" variant="secondary">
-                New question type
-              </Button>
+              <CreateQuestionTypeDialog />
             </div>
             <Accordion type="multiple" className="w-full">
               {skills.map((key) => (
@@ -75,7 +75,7 @@ export default function DailyLessonsPage() {
               ))}
             </Accordion>
           </div>
-          <QuestionTypeDetail />
+          {questionTypeId && skill && <QuestionTypeDetail />}
         </div>
       </main>
     </div>

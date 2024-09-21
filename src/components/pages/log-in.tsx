@@ -28,8 +28,8 @@ type FormInputs = z.infer<typeof formSchema>;
 export default function LogInPage() {
   const form = useForm<FormInputs>({
     defaultValues: {
-      email: "ngantruc2003@gmail.com",
-      password: "123456789",
+      email: "lapinlearnproject@gmail.com",
+      password: "12345678",
     },
     resolver: zodResolver(formSchema),
   });
