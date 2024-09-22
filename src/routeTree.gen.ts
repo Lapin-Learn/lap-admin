@@ -10,281 +10,274 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AuthenticationImport } from './routes/_authentication'
-import { Route as AuthenticatedImport } from './routes/_authenticated'
-import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
-import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
-import { Route as AuthenticationForgetPasswordImport } from './routes/_authentication/forget-password'
-import { Route as AuthenticatedQuestionsIndexImport } from './routes/_authenticated/questions/index'
-import { Route as AuthenticatedDailyLessonsIndexImport } from './routes/_authenticated/daily-lessons/index'
-import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
-import { Route as AuthenticatedQuestionsQuestionIdImport } from './routes/_authenticated/questions/$questionId'
-import { Route as AuthenticatedDailyLessonsLessonIdImport } from './routes/_authenticated/daily-lessons/$lessonId'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as AuthenticationImport } from "./routes/_authentication";
+import { Route as AuthenticatedImport } from "./routes/_authenticated";
+import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
+import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
+import { Route as AuthenticationForgetPasswordImport } from "./routes/_authentication/forget-password";
+import { Route as AuthenticatedQuestionsIndexImport } from "./routes/_authenticated/questions/index";
+import { Route as AuthenticatedDailyLessonsIndexImport } from "./routes/_authenticated/daily-lessons/index";
+import { Route as AuthenticatedQuestionsCreateImport } from "./routes/_authenticated/questions/create";
+import { Route as AuthenticatedQuestionsQuestionIdImport } from "./routes/_authenticated/questions/$questionId";
+import { Route as AuthenticatedDailyLessonsLessonIdImport } from "./routes/_authenticated/daily-lessons/$lessonId";
 
 // Create/Update Routes
 
 const AuthenticationRoute = AuthenticationImport.update({
-  id: '/_authentication',
+  id: "/_authentication",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedRoute = AuthenticatedImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
-  path: '/',
+  path: "/",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 
 const AuthenticationLogInRoute = AuthenticationLogInImport.update({
-  path: '/log-in',
+  path: "/log-in",
   getParentRoute: () => AuthenticationRoute,
-} as any)
+} as any);
 
-const AuthenticationForgetPasswordRoute =
-  AuthenticationForgetPasswordImport.update({
-    path: '/forget-password',
-    getParentRoute: () => AuthenticationRoute,
-  } as any)
+const AuthenticationForgetPasswordRoute = AuthenticationForgetPasswordImport.update({
+  path: "/forget-password",
+  getParentRoute: () => AuthenticationRoute,
+} as any);
 
-const AuthenticatedQuestionsIndexRoute =
-  AuthenticatedQuestionsIndexImport.update({
-    path: '/questions/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const AuthenticatedQuestionsIndexRoute = AuthenticatedQuestionsIndexImport.update({
+  path: "/questions/",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
-const AuthenticatedDailyLessonsIndexRoute =
-  AuthenticatedDailyLessonsIndexImport.update({
-    path: '/daily-lessons/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const AuthenticatedDailyLessonsIndexRoute = AuthenticatedDailyLessonsIndexImport.update({
+  path: "/daily-lessons/",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
-const AuthenticatedQuestionsCreateRoute =
-  AuthenticatedQuestionsCreateImport.update({
-    path: '/questions/create',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const AuthenticatedQuestionsCreateRoute = AuthenticatedQuestionsCreateImport.update({
+  path: "/questions/create",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
-const AuthenticatedQuestionsQuestionIdRoute =
-  AuthenticatedQuestionsQuestionIdImport.update({
-    path: '/questions/$questionId',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const AuthenticatedQuestionsQuestionIdRoute = AuthenticatedQuestionsQuestionIdImport.update({
+  path: "/questions/$questionId",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
-const AuthenticatedDailyLessonsLessonIdRoute =
-  AuthenticatedDailyLessonsLessonIdImport.update({
-    path: '/daily-lessons/$lessonId',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const AuthenticatedDailyLessonsLessonIdRoute = AuthenticatedDailyLessonsLessonIdImport.update({
+  path: "/daily-lessons/$lessonId",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthenticatedImport
-      parentRoute: typeof rootRoute
-    }
-    '/_authentication': {
-      id: '/_authentication'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthenticationImport
-      parentRoute: typeof rootRoute
-    }
-    '/_authentication/forget-password': {
-      id: '/_authentication/forget-password'
-      path: '/forget-password'
-      fullPath: '/forget-password'
-      preLoaderRoute: typeof AuthenticationForgetPasswordImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authentication/log-in': {
-      id: '/_authentication/log-in'
-      path: '/log-in'
-      fullPath: '/log-in'
-      preLoaderRoute: typeof AuthenticationLogInImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/daily-lessons/$lessonId': {
-      id: '/_authenticated/daily-lessons/$lessonId'
-      path: '/daily-lessons/$lessonId'
-      fullPath: '/daily-lessons/$lessonId'
-      preLoaderRoute: typeof AuthenticatedDailyLessonsLessonIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/questions/$questionId': {
-      id: '/_authenticated/questions/$questionId'
-      path: '/questions/$questionId'
-      fullPath: '/questions/$questionId'
-      preLoaderRoute: typeof AuthenticatedQuestionsQuestionIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/questions/create': {
-      id: '/_authenticated/questions/create'
-      path: '/questions/create'
-      fullPath: '/questions/create'
-      preLoaderRoute: typeof AuthenticatedQuestionsCreateImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/daily-lessons/': {
-      id: '/_authenticated/daily-lessons/'
-      path: '/daily-lessons'
-      fullPath: '/daily-lessons'
-      preLoaderRoute: typeof AuthenticatedDailyLessonsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/questions/': {
-      id: '/_authenticated/questions/'
-      path: '/questions'
-      fullPath: '/questions'
-      preLoaderRoute: typeof AuthenticatedQuestionsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
+    "/_authenticated": {
+      id: "/_authenticated";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthenticatedImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_authentication": {
+      id: "/_authentication";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthenticationImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_authentication/forget-password": {
+      id: "/_authentication/forget-password";
+      path: "/forget-password";
+      fullPath: "/forget-password";
+      preLoaderRoute: typeof AuthenticationForgetPasswordImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authentication/log-in": {
+      id: "/_authentication/log-in";
+      path: "/log-in";
+      fullPath: "/log-in";
+      preLoaderRoute: typeof AuthenticationLogInImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authenticated/": {
+      id: "/_authenticated/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthenticatedIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/daily-lessons/$lessonId": {
+      id: "/_authenticated/daily-lessons/$lessonId";
+      path: "/daily-lessons/$lessonId";
+      fullPath: "/daily-lessons/$lessonId";
+      preLoaderRoute: typeof AuthenticatedDailyLessonsLessonIdImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/questions/$questionId": {
+      id: "/_authenticated/questions/$questionId";
+      path: "/questions/$questionId";
+      fullPath: "/questions/$questionId";
+      preLoaderRoute: typeof AuthenticatedQuestionsQuestionIdImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/questions/create": {
+      id: "/_authenticated/questions/create";
+      path: "/questions/create";
+      fullPath: "/questions/create";
+      preLoaderRoute: typeof AuthenticatedQuestionsCreateImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/daily-lessons/": {
+      id: "/_authenticated/daily-lessons/";
+      path: "/daily-lessons";
+      fullPath: "/daily-lessons";
+      preLoaderRoute: typeof AuthenticatedDailyLessonsIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/questions/": {
+      id: "/_authenticated/questions/";
+      path: "/questions";
+      fullPath: "/questions";
+      preLoaderRoute: typeof AuthenticatedQuestionsIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedDailyLessonsLessonIdRoute: typeof AuthenticatedDailyLessonsLessonIdRoute
-  AuthenticatedQuestionsQuestionIdRoute: typeof AuthenticatedQuestionsQuestionIdRoute
-  AuthenticatedQuestionsCreateRoute: typeof AuthenticatedQuestionsCreateRoute
-  AuthenticatedDailyLessonsIndexRoute: typeof AuthenticatedDailyLessonsIndexRoute
-  AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedDailyLessonsLessonIdRoute: typeof AuthenticatedDailyLessonsLessonIdRoute;
+  AuthenticatedQuestionsQuestionIdRoute: typeof AuthenticatedQuestionsQuestionIdRoute;
+  AuthenticatedQuestionsCreateRoute: typeof AuthenticatedQuestionsCreateRoute;
+  AuthenticatedDailyLessonsIndexRoute: typeof AuthenticatedDailyLessonsIndexRoute;
+  AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedDailyLessonsLessonIdRoute:
-    AuthenticatedDailyLessonsLessonIdRoute,
+  AuthenticatedDailyLessonsLessonIdRoute: AuthenticatedDailyLessonsLessonIdRoute,
   AuthenticatedQuestionsQuestionIdRoute: AuthenticatedQuestionsQuestionIdRoute,
   AuthenticatedQuestionsCreateRoute: AuthenticatedQuestionsCreateRoute,
   AuthenticatedDailyLessonsIndexRoute: AuthenticatedDailyLessonsIndexRoute,
   AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
-}
+};
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+  AuthenticatedRouteChildren
+);
 
 interface AuthenticationRouteChildren {
-  AuthenticationForgetPasswordRoute: typeof AuthenticationForgetPasswordRoute
-  AuthenticationLogInRoute: typeof AuthenticationLogInRoute
+  AuthenticationForgetPasswordRoute: typeof AuthenticationForgetPasswordRoute;
+  AuthenticationLogInRoute: typeof AuthenticationLogInRoute;
 }
 
 const AuthenticationRouteChildren: AuthenticationRouteChildren = {
   AuthenticationForgetPasswordRoute: AuthenticationForgetPasswordRoute,
   AuthenticationLogInRoute: AuthenticationLogInRoute,
-}
+};
 
 const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
-  AuthenticationRouteChildren,
-)
+  AuthenticationRouteChildren
+);
 
 export interface FileRoutesByFullPath {
-  '': typeof AuthenticationRouteWithChildren
-  '/forget-password': typeof AuthenticationForgetPasswordRoute
-  '/log-in': typeof AuthenticationLogInRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
-  '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
-  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
-  '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
-  '/questions': typeof AuthenticatedQuestionsIndexRoute
+  "": typeof AuthenticationRouteWithChildren;
+  "/forget-password": typeof AuthenticationForgetPasswordRoute;
+  "/log-in": typeof AuthenticationLogInRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/daily-lessons/$lessonId": typeof AuthenticatedDailyLessonsLessonIdRoute;
+  "/questions/$questionId": typeof AuthenticatedQuestionsQuestionIdRoute;
+  "/questions/create": typeof AuthenticatedQuestionsCreateRoute;
+  "/daily-lessons": typeof AuthenticatedDailyLessonsIndexRoute;
+  "/questions": typeof AuthenticatedQuestionsIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '': typeof AuthenticationRouteWithChildren
-  '/forget-password': typeof AuthenticationForgetPasswordRoute
-  '/log-in': typeof AuthenticationLogInRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
-  '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
-  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
-  '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
-  '/questions': typeof AuthenticatedQuestionsIndexRoute
+  "": typeof AuthenticationRouteWithChildren;
+  "/forget-password": typeof AuthenticationForgetPasswordRoute;
+  "/log-in": typeof AuthenticationLogInRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/daily-lessons/$lessonId": typeof AuthenticatedDailyLessonsLessonIdRoute;
+  "/questions/$questionId": typeof AuthenticatedQuestionsQuestionIdRoute;
+  "/questions/create": typeof AuthenticatedQuestionsCreateRoute;
+  "/daily-lessons": typeof AuthenticatedDailyLessonsIndexRoute;
+  "/questions": typeof AuthenticatedQuestionsIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/_authentication': typeof AuthenticationRouteWithChildren
-  '/_authentication/forget-password': typeof AuthenticationForgetPasswordRoute
-  '/_authentication/log-in': typeof AuthenticationLogInRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_authenticated/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
-  '/_authenticated/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
-  '/_authenticated/questions/create': typeof AuthenticatedQuestionsCreateRoute
-  '/_authenticated/daily-lessons/': typeof AuthenticatedDailyLessonsIndexRoute
-  '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
+  __root__: typeof rootRoute;
+  "/_authenticated": typeof AuthenticatedRouteWithChildren;
+  "/_authentication": typeof AuthenticationRouteWithChildren;
+  "/_authentication/forget-password": typeof AuthenticationForgetPasswordRoute;
+  "/_authentication/log-in": typeof AuthenticationLogInRoute;
+  "/_authenticated/": typeof AuthenticatedIndexRoute;
+  "/_authenticated/daily-lessons/$lessonId": typeof AuthenticatedDailyLessonsLessonIdRoute;
+  "/_authenticated/questions/$questionId": typeof AuthenticatedQuestionsQuestionIdRoute;
+  "/_authenticated/questions/create": typeof AuthenticatedQuestionsCreateRoute;
+  "/_authenticated/daily-lessons/": typeof AuthenticatedDailyLessonsIndexRoute;
+  "/_authenticated/questions/": typeof AuthenticatedQuestionsIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | ''
-    | '/forget-password'
-    | '/log-in'
-    | '/'
-    | '/daily-lessons/$lessonId'
-    | '/questions/$questionId'
-    | '/questions/create'
-    | '/daily-lessons'
-    | '/questions'
-  fileRoutesByTo: FileRoutesByTo
+    | ""
+    | "/forget-password"
+    | "/log-in"
+    | "/"
+    | "/daily-lessons/$lessonId"
+    | "/questions/$questionId"
+    | "/questions/create"
+    | "/daily-lessons"
+    | "/questions";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | ''
-    | '/forget-password'
-    | '/log-in'
-    | '/'
-    | '/daily-lessons/$lessonId'
-    | '/questions/$questionId'
-    | '/questions/create'
-    | '/daily-lessons'
-    | '/questions'
+    | ""
+    | "/forget-password"
+    | "/log-in"
+    | "/"
+    | "/daily-lessons/$lessonId"
+    | "/questions/$questionId"
+    | "/questions/create"
+    | "/daily-lessons"
+    | "/questions";
   id:
-    | '__root__'
-    | '/_authenticated'
-    | '/_authentication'
-    | '/_authentication/forget-password'
-    | '/_authentication/log-in'
-    | '/_authenticated/'
-    | '/_authenticated/daily-lessons/$lessonId'
-    | '/_authenticated/questions/$questionId'
-    | '/_authenticated/questions/create'
-    | '/_authenticated/daily-lessons/'
-    | '/_authenticated/questions/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/_authenticated"
+    | "/_authentication"
+    | "/_authentication/forget-password"
+    | "/_authentication/log-in"
+    | "/_authenticated/"
+    | "/_authenticated/daily-lessons/$lessonId"
+    | "/_authenticated/questions/$questionId"
+    | "/_authenticated/questions/create"
+    | "/_authenticated/daily-lessons/"
+    | "/_authenticated/questions/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  AuthenticationRoute: typeof AuthenticationRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
