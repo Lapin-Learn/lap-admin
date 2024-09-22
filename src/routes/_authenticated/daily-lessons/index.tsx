@@ -7,7 +7,8 @@ const searchSchema = z.object({
   skill: z.nativeEnum(EnumSkill).catch(EnumSkill.reading),
   questionType: z.number().default(1),
 });
-export const Route = createFileRoute("/_authenticated/daily-lessons")({
+
+export const Route = createFileRoute("/_authenticated/daily-lessons/")({
   validateSearch: (search) => {
     return searchSchema.parse(search);
   },

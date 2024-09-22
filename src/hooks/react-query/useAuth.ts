@@ -13,7 +13,6 @@ export const authKeys = {
 export const useSignIn = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signIn,
     onSuccess: () => {

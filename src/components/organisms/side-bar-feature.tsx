@@ -39,9 +39,11 @@ export const SideBarFeature = (props: {
       >
         <div
           className={cn(
-            "flex h-10 rounded-lg transition-all duration-300 hover:bg-neutral-100",
+            "flex h-10 rounded-lg transition-all duration-300",
             isExpanded && "mx-2",
-            isActive ? "bg-netral-200" : "bg-transparent",
+            isActive
+              ? "bg-neutral-200 hover:bg-neutral-300/50"
+              : "bg-transparent hover:bg-neutral-100",
             isChild && !isExpanded && "bg-transparent hover:bg-transparent",
             !isExpanded && isSelectChild && "bg-neutral-100"
           )}
@@ -59,7 +61,7 @@ export const SideBarFeature = (props: {
             <span
               className={cn(
                 "absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap text-sm duration-300",
-                isActive ? "text-muted-foreground" : "text-grey"
+                isActive ? "text-grey" : "text-grey"
               )}
             >
               {label}

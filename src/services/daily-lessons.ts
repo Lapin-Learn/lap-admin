@@ -1,5 +1,6 @@
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import api from "./kyInstance";
+import { Question } from "@/lib/types/questions";
 
 export type QuestionType = {
   id: number;
@@ -14,6 +15,14 @@ export type Lesson = {
   name: string;
   order: number;
   bandScore: EnumBandScore;
+};
+
+export type LessonDetail = Omit<Lesson, "bandScore"> & {
+  questionToLessons: {
+    question: Question;
+    order: number;
+    questionId: string;
+  }[];
 };
 
 export type QuestionTypeList = Record<EnumSkill, QuestionType[]>;
@@ -46,5 +55,11 @@ type CreateQuestionTypeParams = {
 export const createQuestionType = async (questionType: CreateQuestionTypeParams) => {
   return (
     await api.post("admin/question-types", { json: questionType }).json<{ data: QuestionType }>()
+  ).data;
+};
+
+export const getLessonDetail = async (lessonId: string) => {
+  return (
+    await api.get(`daily-lessons/lessons/${lessonId}/questions`).json<{ data: LessonDetail }>()
   ).data;
 };

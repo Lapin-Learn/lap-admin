@@ -16,7 +16,9 @@ import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
 import { Route as AuthenticationForgetPasswordImport } from './routes/_authentication/forget-password'
-import { Route as AuthenticatedDailyLessonsImport } from './routes/_authenticated/daily-lessons'
+import { Route as AuthenticatedQuestionsImport } from './routes/_authenticated/questions'
+import { Route as AuthenticatedDailyLessonsIndexImport } from './routes/_authenticated/daily-lessons/index'
+import { Route as AuthenticatedDailyLessonsLessonIdImport } from './routes/_authenticated/daily-lessons/$lessonId'
 
 // Create/Update Routes
 
@@ -46,10 +48,22 @@ const AuthenticationForgetPasswordRoute =
     getParentRoute: () => AuthenticationRoute,
   } as any)
 
-const AuthenticatedDailyLessonsRoute = AuthenticatedDailyLessonsImport.update({
-  path: '/daily-lessons',
+const AuthenticatedQuestionsRoute = AuthenticatedQuestionsImport.update({
+  path: '/questions',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+
+const AuthenticatedDailyLessonsIndexRoute =
+  AuthenticatedDailyLessonsIndexImport.update({
+    path: '/daily-lessons/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedDailyLessonsLessonIdRoute =
+  AuthenticatedDailyLessonsLessonIdImport.update({
+    path: '/daily-lessons/$lessonId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -69,11 +83,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticationImport
       parentRoute: typeof rootRoute
     }
-    '/_authenticated/daily-lessons': {
-      id: '/_authenticated/daily-lessons'
-      path: '/daily-lessons'
-      fullPath: '/daily-lessons'
-      preLoaderRoute: typeof AuthenticatedDailyLessonsImport
+    '/_authenticated/questions': {
+      id: '/_authenticated/questions'
+      path: '/questions'
+      fullPath: '/questions'
+      preLoaderRoute: typeof AuthenticatedQuestionsImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authentication/forget-password': {
@@ -97,19 +111,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/daily-lessons/$lessonId': {
+      id: '/_authenticated/daily-lessons/$lessonId'
+      path: '/daily-lessons/$lessonId'
+      fullPath: '/daily-lessons/$lessonId'
+      preLoaderRoute: typeof AuthenticatedDailyLessonsLessonIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/daily-lessons/': {
+      id: '/_authenticated/daily-lessons/'
+      path: '/daily-lessons'
+      fullPath: '/daily-lessons'
+      preLoaderRoute: typeof AuthenticatedDailyLessonsIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedDailyLessonsRoute: typeof AuthenticatedDailyLessonsRoute
+  AuthenticatedQuestionsRoute: typeof AuthenticatedQuestionsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedDailyLessonsLessonIdRoute: typeof AuthenticatedDailyLessonsLessonIdRoute
+  AuthenticatedDailyLessonsIndexRoute: typeof AuthenticatedDailyLessonsIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedDailyLessonsRoute: AuthenticatedDailyLessonsRoute,
+  AuthenticatedQuestionsRoute: AuthenticatedQuestionsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedDailyLessonsLessonIdRoute:
+    AuthenticatedDailyLessonsLessonIdRoute,
+  AuthenticatedDailyLessonsIndexRoute: AuthenticatedDailyLessonsIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -132,43 +165,65 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof AuthenticationRouteWithChildren
-  '/daily-lessons': typeof AuthenticatedDailyLessonsRoute
+  '/questions': typeof AuthenticatedQuestionsRoute
   '/forget-password': typeof AuthenticationForgetPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/': typeof AuthenticatedIndexRoute
+  '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
+  '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '': typeof AuthenticationRouteWithChildren
-  '/daily-lessons': typeof AuthenticatedDailyLessonsRoute
+  '/questions': typeof AuthenticatedQuestionsRoute
   '/forget-password': typeof AuthenticationForgetPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/': typeof AuthenticatedIndexRoute
+  '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
+  '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_authentication': typeof AuthenticationRouteWithChildren
-  '/_authenticated/daily-lessons': typeof AuthenticatedDailyLessonsRoute
+  '/_authenticated/questions': typeof AuthenticatedQuestionsRoute
   '/_authentication/forget-password': typeof AuthenticationForgetPasswordRoute
   '/_authentication/log-in': typeof AuthenticationLogInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
+  '/_authenticated/daily-lessons/': typeof AuthenticatedDailyLessonsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/daily-lessons' | '/forget-password' | '/log-in' | '/'
+  fullPaths:
+    | ''
+    | '/questions'
+    | '/forget-password'
+    | '/log-in'
+    | '/'
+    | '/daily-lessons/$lessonId'
+    | '/daily-lessons'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/daily-lessons' | '/forget-password' | '/log-in' | '/'
+  to:
+    | ''
+    | '/questions'
+    | '/forget-password'
+    | '/log-in'
+    | '/'
+    | '/daily-lessons/$lessonId'
+    | '/daily-lessons'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_authentication'
-    | '/_authenticated/daily-lessons'
+    | '/_authenticated/questions'
     | '/_authentication/forget-password'
     | '/_authentication/log-in'
     | '/_authenticated/'
+    | '/_authenticated/daily-lessons/$lessonId'
+    | '/_authenticated/daily-lessons/'
   fileRoutesById: FileRoutesById
 }
 
@@ -201,8 +256,10 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
-        "/_authenticated/daily-lessons",
-        "/_authenticated/"
+        "/_authenticated/questions",
+        "/_authenticated/",
+        "/_authenticated/daily-lessons/$lessonId",
+        "/_authenticated/daily-lessons/"
       ]
     },
     "/_authentication": {
@@ -212,8 +269,8 @@ export const routeTree = rootRoute
         "/_authentication/log-in"
       ]
     },
-    "/_authenticated/daily-lessons": {
-      "filePath": "_authenticated/daily-lessons.tsx",
+    "/_authenticated/questions": {
+      "filePath": "_authenticated/questions.tsx",
       "parent": "/_authenticated"
     },
     "/_authentication/forget-password": {
@@ -226,6 +283,14 @@ export const routeTree = rootRoute
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/daily-lessons/$lessonId": {
+      "filePath": "_authenticated/daily-lessons/$lessonId.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/daily-lessons/": {
+      "filePath": "_authenticated/daily-lessons/index.tsx",
       "parent": "/_authenticated"
     }
   }
