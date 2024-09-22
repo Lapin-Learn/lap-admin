@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { flexRender, getCoreRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { Lesson } from "@/services";
@@ -13,6 +13,9 @@ import {
 import { cn } from "@/lib/utils";
 import NewLessonRow from "./new-lesson-row";
 import { EnumBandScore } from "@/lib/enums";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+import DraggableRow from "./draggable-row";
 
 export type LessonListTableProps = {
   data: Lesson[];
@@ -23,9 +26,10 @@ export type LessonListTableProps = {
 export default function LessonListTable({ data, questionTypeId, bandScore }: LessonListTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
+  const [lessons, setLessons] = React.useState<Lesson[]>(data);
 
   const table = useReactTable({
-    data,
+    data: lessons,
     columns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -35,6 +39,18 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
       rowSelection,
     },
   });
+
+  const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
+    setLessons((prevLessons) => {
+      const newLessons = [...prevLessons];
+      const dragLesson = newLessons[dragIndex];
+
+      newLessons.splice(dragIndex, 1);
+      newLessons.splice(hoverIndex, 0, dragLesson);
+
+      return newLessons;
+    });
+  }, []);
   return (
     <Table className="overflow-hidden rounded-md">
       <TableHeader className="">
@@ -64,28 +80,13 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
 
       <TableBody className="bg-white">
         {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-                className={cn(
-                  "cursor-pointer",
-                  row.getIsSelected() ? "" : "[&:hover_button]:opacity-100 [&_button]:opacity-0"
-                )}
-                // {...(onClickItem ? { onClick: () => onClickItem(row.original) } : {})}
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const size = cell.column.getSize();
-                  return (
-                    <TableCell key={cell.id} className="px-4" width={size}>
-                      <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })
+          <DndProvider backend={HTML5Backend}>
+            {table.getRowModel().rows.map((row, index) => {
+              return (
+                <DraggableRow key={row.id} id={row.id} index={index} row={row} moveRow={moveRow} />
+              );
+            })}
+          </DndProvider>
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
