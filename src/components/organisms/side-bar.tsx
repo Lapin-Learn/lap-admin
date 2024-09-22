@@ -1,10 +1,10 @@
-import { Book, FileQuestion } from "lucide-react";
+import { BookOpen, FileQuestion } from "lucide-react";
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 
 const features: SideBarFeatureProps[] = [
   {
     to: "/daily-lessons",
-    icon: <Book size={16} />,
+    icon: <BookOpen size={16} />,
     label: "Daily lessons",
   },
   { to: "/questions", icon: <FileQuestion size={16} />, label: "Questions" },

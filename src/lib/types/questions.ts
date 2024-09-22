@@ -1,6 +1,6 @@
 import { EnumCERFLevel } from "../enums";
 
-const enum EnumQuestion {
+export enum EnumQuestion {
   MultipleChoice = "multiple_choice",
   FillInTheBlank = "fill_in_the_blank",
   Matching = "matching",

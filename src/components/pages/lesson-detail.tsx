@@ -7,7 +7,7 @@ import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { useRef } from "react";
 import { Separator } from "../ui/separator";
-import { Info, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 export default function LessonDetailPage() {

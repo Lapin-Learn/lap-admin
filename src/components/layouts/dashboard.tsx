@@ -1,3 +1,4 @@
+import NavBar from "../mocules/nav-bar";
 import SideBar from "../organisms/side-bar";
 
 export default function DashboardLayout({ children }: React.PropsWithChildren<object>) {
@@ -7,7 +8,10 @@ export default function DashboardLayout({ children }: React.PropsWithChildren<ob
         <SideBar />
       </div>
 
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col">
+        <NavBar />
+        {children}
+      </main>
     </div>
   );
 }

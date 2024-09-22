@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import QuestionTypeDetail from "../organisms/question-type-detail";
 import { Link, useSearch } from "@tanstack/react-router";
 import CreateQuestionTypeDialog from "../organisms/create-question-type-dialog";
+import { Typography } from "../ui/typography";
 
 export default function DailyLessonsPage() {
   const skills = Object.keys(EnumSkill);
@@ -23,10 +24,10 @@ export default function DailyLessonsPage() {
     <div className="grid grid-cols-[1fr_2fr] gap-10 p-6">
       <div>
         <div className="mb-4 flex items-center justify-between">
-          <h6 className="text-2xl font-semibold">
+          <Typography variant="h3">
             <BookOpen size={24} className="mr-2 inline-block" />
             Daily lessons bank
-          </h6>
+          </Typography>
           <Button variant="secondary" size="sm" className="size-10 p-1">
             <ChartColumnDecreasing size={24} />
           </Button>
@@ -60,9 +61,12 @@ export default function DailyLessonsPage() {
                     );
                   })
                 ) : (
-                  <h6 className="ml-4 grid h-10 place-items-center text-muted-foreground">
+                  <Typography
+                    variant="subtitle1"
+                    className="ml-4 grid h-10 place-items-center text-muted-foreground"
+                  >
                     No question type found
-                  </h6>
+                  </Typography>
                 )}
               </AccordionContent>
             </AccordionItem>

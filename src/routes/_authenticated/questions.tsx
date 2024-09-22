@@ -1,5 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import QuestionListPage from "@/components/pages/questions";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_authenticated/questions')({
-  component: () => <div>Hello /_authenticated/question!</div>,
-})
+export const Route = createFileRoute("/_authenticated/questions")({
+  component: () => <QuestionListPage />,
+});
