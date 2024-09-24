@@ -1,4 +1,9 @@
-import { createQuestion, getQuestions } from "@/services/questions";
+import {
+  createQuestion,
+  getQuestions,
+  updateQuestion,
+  UpdateQuestionParams,
+} from "@/services/questions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../use-toast";
 import { useNavigate } from "@tanstack/react-router";
@@ -28,10 +33,38 @@ export const useCreateQuestion = () => {
         queryKey: QuestionKeys.list(),
       });
       navigate({ to: "/questions" });
+      toast({
+        title: "Question created",
+      });
     },
     onError: (error) => {
       toast({
         title: "Error in creating question",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useUpdateQuestion = (questionId: string) => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (value: UpdateQuestionParams) => updateQuestion(questionId, value),
+    onSuccess: (returnData) => {
+      queryClient.invalidateQueries({
+        queryKey: QuestionKeys.list(),
+      });
+      queryClient.setQueryData(QuestionKeys.detail(returnData.id), returnData);
+      toast({
+        title: "Question updated",
+        description: "Question has been updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error in updating question",
         description: error.message,
         variant: "destructive",
       });

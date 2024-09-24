@@ -8,7 +8,13 @@ export const getQuestions = async () => {
 };
 
 type CreateQuestionParams = Omit<Question, "createdAt" | "updatedAt" | "id">;
-
 export const createQuestion = async (params: CreateQuestionParams) => {
   return (await api.post("admin/questions", { json: params }).json<{ data: Question }>()).data;
+};
+
+export type UpdateQuestionParams = Partial<CreateQuestionParams>;
+export const updateQuestion = async (questionId: string, params: UpdateQuestionParams) => {
+  return (
+    await api.put(`admin/questions/${questionId}`, { json: params }).json<{ data: Question }>()
+  ).data;
 };

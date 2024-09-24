@@ -1,5 +1,4 @@
 import { BookOpen, ChartColumnDecreasing, Search } from "lucide-react";
-import SideBar from "../organisms/side-bar";
 import { Input } from "../ui/input";
 import {
   Accordion,

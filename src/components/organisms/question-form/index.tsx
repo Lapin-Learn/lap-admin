@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -16,10 +16,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelect from "@/components/mocules/form-inputs/form-select";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
-import FormOptionList from "@/components/organisms/question-form/form-option-list";
-import AnswerSheet from "./answer-sheet";
 import FormTextArea from "@/components/mocules/form-inputs/form-text-area";
-import { useState } from "react";
+import MultipleChoice from "./content/multiple-choice";
 
 const baseCreateQuestionSchema = z.object({
   contentType: z.nativeEnum(EnumQuestion),
@@ -63,7 +61,6 @@ export default function CreateQuestionPage({
     },
     resolver: zodResolver(baseCreateQuestionSchema),
   });
-  const [isEditingAnswer, setIsEditingAnswer] = useState(false);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -101,28 +98,7 @@ export default function CreateQuestionPage({
             </FormItem>
           )}
         />
-        <div>
-          <FormOptionList
-            label="Options"
-            name="content.options"
-            isEditing={isEditingAnswer}
-            selected={form.watch("content.answer")}
-          />
-          <AnswerSheet
-            options={form.watch("content.options") || []}
-            selected={form.watch("content.answer")}
-            onChoose={(indexes) => {
-              form.setValue("content.answer", indexes, { shouldValidate: true });
-              setIsEditingAnswer((prev) => !prev);
-            }}
-            isEditing={isEditingAnswer}
-          />
-          {Boolean(form.formState.errors.content?.answer) && (
-            <p className="text-[0.8rem] font-medium text-destructive">
-              {form.formState.errors.content?.answer?.message?.toString()}
-            </p>
-          )}
-        </div>
+        {createContentQuestion(form)}
         <FormTextArea name="explanation" label="Explanation" />
         <Button className="w-fit" disabled={disabledSubmit ?? false}>
           {defaultValues ? "Save changes" : "Create question"}
@@ -130,4 +106,13 @@ export default function CreateQuestionPage({
       </form>
     </Form>
   );
+}
+
+function createContentQuestion(form: UseFormReturn<BaseCreateQuestion>) {
+  switch (form.watch("contentType")) {
+    case EnumQuestion.MultipleChoice:
+      return <MultipleChoice form={form} />;
+    default:
+      return null;
+  }
 }

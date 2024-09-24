@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 
-import { signIn, signOut } from "@/services/auth";
+import { signIn } from "@/services/auth";
 
 import { useToast } from "../use-toast";
 

@@ -1,18 +1,17 @@
 import { Separator } from "../ui/separator";
 import { Typography } from "../ui/typography";
-import { useCreateQuestion, useGetQuestions } from "@/hooks/react-query/useQuestions";
+import { useGetQuestions, useUpdateQuestion } from "@/hooks/react-query/useQuestions";
 import QuestionForm, { BaseCreateQuestion } from "../organisms/question-form";
 import { useMemo } from "react";
-import { useParams } from "@tanstack/react-router";
 import { Route } from "@/routes/_authenticated/questions/$questionId";
 import { EnumQuestion } from "@/lib/types/questions";
 
 export default function QuestionDetailPage() {
-  const { questionId } = useParams({ from: Route.fullPath });
-  const createQuestion = useCreateQuestion();
+  const { questionId } = Route.useParams();
+  const updateQuestion = useUpdateQuestion(questionId);
   const { data: questionList } = useGetQuestions();
   const onSubmit = (data: BaseCreateQuestion) => {
-    createQuestion.mutate({
+    updateQuestion.mutate({
       ...data,
       content: {
         ...data.content,
@@ -43,7 +42,7 @@ export default function QuestionDetailPage() {
       <Separator className="my-4" />
       <QuestionForm
         onSubmit={onSubmit}
-        disabledSubmit={createQuestion.isPending}
+        disabledSubmit={updateQuestion.isPending}
         {...(selectedQuestion ? { defaultValues: selectedQuestion } : {})}
       />
     </div>
