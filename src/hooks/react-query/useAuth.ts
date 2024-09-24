@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 
-import { signIn, signOut } from "@/services/auth";
+import { signIn } from "@/services/auth";
 
 import { useToast } from "../use-toast";
 
@@ -13,7 +13,6 @@ export const authKeys = {
 export const useSignIn = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signIn,
     onSuccess: () => {
@@ -41,8 +40,9 @@ export const useSignOut = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: signOut,
+    mutationFn: async () => {},
     onSuccess: () => {
+      console.log("signOut");
       navigate({ to: "/log-in" });
       queryClient.clear();
     },

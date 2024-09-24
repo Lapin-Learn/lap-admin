@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import { Lesson } from "@/services";
+import { Link } from "@tanstack/react-router";
 export const columns: ColumnDef<Lesson>[] = [
   {
     id: "select",
@@ -33,6 +34,11 @@ export const columns: ColumnDef<Lesson>[] = [
   {
     accessorKey: "name",
     header: "Lesson name",
+    cell: ({ row }) => (
+      <Link to={`${row.original.id}`} className="hover:underline">
+        {row.getValue("name")}
+      </Link>
+    ),
     size: 500,
   },
   {

@@ -1,6 +1,7 @@
 import {
   createLesson,
   createQuestionType,
+  getLessonDetail,
   getLessonsOfQuestionType,
   getQuestionTypes,
   LessonList,
@@ -16,6 +17,7 @@ const QuestionTypeKeys = {
 const LessonKeys = {
   key: ["lessons"],
   list: (questionType: number) => [...LessonKeys.key, "list", questionType],
+  detail: (lessonId: string) => [...LessonKeys.key, "detail", lessonId],
 };
 
 export const useGetQuestionTypes = () => {
@@ -65,5 +67,12 @@ export const useCreateQuestionType = () => {
         };
       });
     },
+  });
+};
+
+export const useGetLessonDetail = (lessonId: string) => {
+  return useQuery({
+    queryKey: LessonKeys.detail(lessonId),
+    queryFn: () => getLessonDetail(lessonId),
   });
 };

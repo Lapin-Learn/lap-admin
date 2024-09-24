@@ -20,3 +20,13 @@ export enum EnumBandScore {
   BAND_65 = "6.5",
   BAND_7 = "7.0",
 }
+
+export enum EnumCERFLevel {
+  A1 = "A1",
+  A2 = "A2",
+  B1 = "B1",
+  B2 = "B2",
+  C1 = "C1",
+  C2 = "C2",
+  Any = "Any",
+}
