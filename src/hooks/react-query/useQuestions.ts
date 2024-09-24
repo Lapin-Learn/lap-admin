@@ -1,5 +1,7 @@
-import { getQuestions } from "@/services/questions";
-import { useQuery } from "@tanstack/react-query";
+import { createQuestion, getQuestions } from "@/services/questions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "../use-toast";
+import { useNavigate } from "@tanstack/react-router";
 
 const QuestionKeys = {
   key: ["questions"],
@@ -12,5 +14,27 @@ export const useGetQuestions = () => {
   return useQuery({
     queryKey: QuestionKeys.list(),
     queryFn: getQuestions,
+  });
+};
+
+export const useCreateQuestion = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: createQuestion,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QuestionKeys.list(),
+      });
+      navigate({ to: "/questions" });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error in creating question",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 };

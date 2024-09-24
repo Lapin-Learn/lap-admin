@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
@@ -29,10 +30,10 @@ type TypographyProps = React.AllHTMLAttributes<HTMLElement> &
 const Typography = React.forwardRef<
   HTMLHeadingElement | HTMLParagraphElement | HTMLDivElement,
   TypographyProps
->(({ variant = "body1", children, ...props }, ref) => {
+>(({ variant = "body1", children, className, ...props }, ref) => {
   const Comp = "p";
   return (
-    <Comp ref={ref} className={typographyVariants({ variant })} {...props}>
+    <Comp ref={ref} className={cn(typographyVariants({ variant }), className)} {...props}>
       {children}
     </Comp>
   );

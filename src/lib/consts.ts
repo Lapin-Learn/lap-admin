@@ -1,4 +1,5 @@
 import { EnumBandScore } from "./enums";
+import { EnumQuestion } from "./types/questions";
 
 export const bandScores = {
   [EnumBandScore.PRE_IELTS]: "Pre IELTS",
@@ -9,3 +10,9 @@ export const bandScores = {
   [EnumBandScore.BAND_65]: "Band 6.5",
   [EnumBandScore.BAND_7]: "Band 7.0",
 };
+
+export const CONTENT_TYPE_OPTIONS = [
+  { value: EnumQuestion.MultipleChoice, label: "Multiple choice" },
+  { value: EnumQuestion.FillInTheBlank, label: "Fill in the blanks" },
+  { value: EnumQuestion.Matching, label: "Matching" },
+];

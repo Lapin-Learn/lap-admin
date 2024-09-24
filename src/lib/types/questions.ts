@@ -12,7 +12,8 @@ type ReadingQuestion = {
 };
 
 type BaseQuestion = {
-  explanation: string;
+  id: string;
+  explanation: string | null;
   cerfLevel: EnumCERFLevel;
   imageId: string | null;
   audioId: string | null;
