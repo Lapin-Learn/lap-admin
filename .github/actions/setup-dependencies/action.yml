@@ -8,5 +8,5 @@ runs:
     - name: Install PNPM
       run: npm i -g pnpm
       shell: bash
-    - run: pnpm i --frozen-lockfile
+    - run: pnpm i
       shell: bash
