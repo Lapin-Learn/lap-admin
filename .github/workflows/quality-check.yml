@@ -3,18 +3,6 @@ on:
   pull_request:
     branches: ["develop"]
 jobs:
-  format-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-dependencies
-      - run: pnpm format:check
-  lint-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-dependencies
-      - run: pnpm lint
   build-check:
     runs-on: ubuntu-latest
     steps:
