@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { BaseCreateQuestion } from "..";
-import AnswerSheet from "../answer-sheet";
-import FormOptionList from "../form-option-list";
+import { BaseCreateQuestion } from "../validation";
+import AnswerSheet from "./answer-sheet";
+import FormOptionList from "./form-option-list";
 
 export default function MultipleChoice({ form }: { form: UseFormReturn<BaseCreateQuestion> }) {
   const [isEditingAnswer, setIsEditingAnswer] = useState(false);

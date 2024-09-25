@@ -12,28 +12,13 @@ import { Input } from "@/components/ui/input";
 import { EnumQuestion, Question } from "@/lib/types/questions";
 import { Button } from "@/components/ui/button";
 import { EnumCERFLevel } from "@/lib/enums";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelect from "@/components/mocules/form-inputs/form-select";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
 import FormTextArea from "@/components/mocules/form-inputs/form-text-area";
-import MultipleChoice from "./content/multiple-choice";
-
-const baseCreateQuestionSchema = z.object({
-  contentType: z.nativeEnum(EnumQuestion),
-  content: z.object({
-    paragraph: z.string().trim().min(1, "Paragraph is required"),
-    question: z.string().trim().min(1, "Question is required"),
-    options: z.array(z.string()).min(2, "At least 2 options are required"),
-    answer: z.array(z.number()).min(1, "At least 1 answer is required"),
-  }),
-  imageId: z.string().nullable().default(null),
-  audioId: z.string().nullable().default(null),
-  cerfLevel: z.nativeEnum(EnumCERFLevel),
-  explanation: z.string().nullable(),
-});
-
-export type BaseCreateQuestion = z.infer<typeof baseCreateQuestionSchema>;
+import MultipleChoice from "./multiple-choice";
+import { useEffect } from "react";
+import { BaseCreateQuestion, baseCreateQuestionSchema } from "./validation";
 
 type QuestionFormProps = {
   onSubmit: (data: BaseCreateQuestion) => void;
@@ -61,6 +46,9 @@ export default function CreateQuestionPage({
     },
     resolver: zodResolver(baseCreateQuestionSchema),
   });
+  useEffect(() => {
+    if (defaultValues) form.reset(defaultValues as BaseCreateQuestion);
+  }, [defaultValues]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">

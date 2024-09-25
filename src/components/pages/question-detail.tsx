@@ -1,10 +1,11 @@
 import { Separator } from "../ui/separator";
 import { Typography } from "../ui/typography";
 import { useGetQuestions, useUpdateQuestion } from "@/hooks/react-query/useQuestions";
-import QuestionForm, { BaseCreateQuestion } from "../organisms/question-form";
+import QuestionForm from "../organisms/question-form";
 import { useMemo } from "react";
 import { Route } from "@/routes/_authenticated/questions/$questionId";
 import { EnumQuestion } from "@/lib/types/questions";
+import { BaseCreateQuestion } from "../organisms/question-form/validation";
 
 export default function QuestionDetailPage() {
   const { questionId } = Route.useParams();
