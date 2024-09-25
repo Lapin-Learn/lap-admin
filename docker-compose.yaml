@@ -9,10 +9,6 @@ services:
     ports:
       - "3002:80"
     pull_policy: build
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - ./dist:/usr/share/nginx/html
+    env_file:
+      - stack.env
     restart: always
