@@ -1,6 +1,6 @@
 import { KeyRound } from "lucide-react";
-import { Button } from "../../ui/button";
-import { Typography } from "../../ui/typography";
+import { Button } from "../../../ui/button";
+import { Typography } from "../../../ui/typography";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 

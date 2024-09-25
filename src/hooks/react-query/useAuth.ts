@@ -42,7 +42,6 @@ export const useSignOut = () => {
   return useMutation({
     mutationFn: async () => {},
     onSuccess: () => {
-      console.log("signOut");
       navigate({ to: "/log-in" });
       queryClient.clear();
     },
