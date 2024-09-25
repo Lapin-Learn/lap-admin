@@ -10,6 +10,8 @@ RUN pnpm install
 
 COPY . .
 
+ENV VITE_API_BASE_URL=https://lapinlearn.systems/api
+
 RUN pnpm run build
 
 # Stage 2: Serve the Vite app with nginx

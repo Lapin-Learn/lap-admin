@@ -3,7 +3,6 @@ build
 dist
 node_modules
 LICENSE
-pnpm-lock.yaml
 .git
 .DS_Store
 .env.*
