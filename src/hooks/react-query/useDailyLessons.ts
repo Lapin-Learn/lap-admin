@@ -6,8 +6,11 @@ import {
   getQuestionTypes,
   LessonList,
   QuestionTypeList,
+  ReorderLessonParams,
+  reorderLessons,
 } from "@/services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "../use-toast";
 
 const QuestionTypeKeys = {
   key: ["question-types"],
@@ -74,5 +77,32 @@ export const useGetLessonDetail = (lessonId: string) => {
   return useQuery({
     queryKey: LessonKeys.detail(lessonId),
     queryFn: () => getLessonDetail(lessonId),
+  });
+};
+
+export const useReorderLessons = (questionTypeId: number) => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  return useMutation({
+    mutationFn: (params: ReorderLessonParams) => reorderLessons({ ...params, questionTypeId }),
+    onSuccess: (returnData, variable) => {
+      queryClient.setQueryData(LessonKeys.list(questionTypeId), (oldData: LessonList) => {
+        return {
+          ...oldData,
+          [variable.bandScore]: returnData.lessons,
+        };
+      });
+      toast({
+        title: "Success",
+        description: "Reorder lessons successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 };

@@ -38,8 +38,8 @@ export const columns: ColumnDef<Question>[] = [
     size: 400,
   },
   {
-    accessorKey: "cerfLevel",
-    header: "CERF Level",
+    accessorKey: "cefrLevel",
+    header: "CEFR Level",
   },
   {
     id: "actions",

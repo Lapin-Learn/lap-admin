@@ -1,4 +1,4 @@
-import { EnumCERFLevel } from "../enums";
+import { EnumCEFRLevel } from "../enums";
 
 export enum EnumQuestion {
   MultipleChoice = "multiple_choice",
@@ -14,7 +14,7 @@ type ReadingQuestion = {
 type BaseQuestion = {
   id: string;
   explanation: string | null;
-  cerfLevel: EnumCERFLevel;
+  cefrLevel: EnumCEFRLevel;
   imageId: string | null;
   audioId: string | null;
   createdAt: string;

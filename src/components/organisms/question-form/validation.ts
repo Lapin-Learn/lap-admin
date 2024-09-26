@@ -1,4 +1,4 @@
-import { EnumCERFLevel } from "@/lib/enums";
+import { EnumCEFRLevel } from "@/lib/enums";
 import { EnumQuestion } from "@/lib/types/questions";
 import { z } from "zod";
 
@@ -16,7 +16,7 @@ export const baseCreateQuestionSchema = z.object({
     .merge(questionSchema),
   imageId: z.string().nullable().default(null),
   audioId: z.string().nullable().default(null),
-  cerfLevel: z.nativeEnum(EnumCERFLevel),
+  cefrLevel: z.nativeEnum(EnumCEFRLevel),
   explanation: z.string().nullable(),
 });
 
