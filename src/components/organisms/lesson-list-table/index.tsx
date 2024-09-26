@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import { flexRender, getCoreRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { Lesson } from "@/services";
@@ -13,6 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 import NewLessonRow from "./new-lesson-row";
 import { EnumBandScore } from "@/lib/enums";
+import { useReorderLessons } from "@/hooks/react-query/useDailyLessons";
+import DraggableRowContainer from "./draggable-row-container";
 
 export type LessonListTableProps = {
   data: Lesson[];
@@ -23,7 +26,7 @@ export type LessonListTableProps = {
 export default function LessonListTable({ data, questionTypeId, bandScore }: LessonListTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
-
+  const reorderLessonsMutation = useReorderLessons(questionTypeId);
   const table = useReactTable({
     data,
     columns,
@@ -35,6 +38,20 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
       rowSelection,
     },
   });
+
+  const onChangeRows = (newLessons: Lesson[]) => {
+    if (!_.isEqual(newLessons, data) && data.length > 1) {
+      console.log(newLessons);
+      console.log(data);
+      reorderLessonsMutation.mutate({
+        bandScore,
+        reorderLessons: newLessons.map((lesson, index) => ({
+          lessonId: lesson.id,
+          order: index + 1,
+        })),
+      });
+    }
+  };
   return (
     <Table className="overflow-hidden rounded-md">
       <TableHeader className="">
@@ -64,28 +81,7 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
 
       <TableBody className="bg-white">
         {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-                className={cn(
-                  "cursor-pointer",
-                  row.getIsSelected() ? "" : "[&:hover_button]:opacity-100 [&_button]:opacity-0"
-                )}
-                // {...(onClickItem ? { onClick: () => onClickItem(row.original) } : {})}
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const size = cell.column.getSize();
-                  return (
-                    <TableCell key={cell.id} className="px-4" width={size}>
-                      <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })
+          <DraggableRowContainer rows={table.getRowModel().rows} onChange={onChangeRows} />
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">

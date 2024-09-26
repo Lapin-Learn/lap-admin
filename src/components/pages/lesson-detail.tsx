@@ -37,7 +37,7 @@ export default function LessonDetailPage() {
                 <div className="inline-flex items-center font-semibold">
                   Question {order}
                   <Badge variant="secondary" className="ml-2">
-                    {question.cerfLevel}
+                    {question.cefrLevel}
                   </Badge>
                 </div>
                 {question.contentType === "multiple_choice" && (

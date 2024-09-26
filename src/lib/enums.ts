@@ -21,7 +21,7 @@ export enum EnumBandScore {
   BAND_7 = "7.0",
 }
 
-export enum EnumCERFLevel {
+export enum EnumCEFRLevel {
   A1 = "A1",
   A2 = "A2",
   B1 = "B1",

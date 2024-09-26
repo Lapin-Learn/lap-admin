@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { EnumQuestion, Question } from "@/lib/types/questions";
 import { Button } from "@/components/ui/button";
-import { EnumCERFLevel } from "@/lib/enums";
+import { EnumCEFRLevel } from "@/lib/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelect from "@/components/mocules/form-inputs/form-select";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
@@ -39,7 +39,7 @@ export default function CreateQuestionPage({
         question: "",
         answer: [],
       },
-      cerfLevel: EnumCERFLevel.A1,
+      cefrLevel: EnumCEFRLevel.A1,
       explanation: null,
       imageId: null,
       audioId: null,
@@ -60,10 +60,10 @@ export default function CreateQuestionPage({
             className="w-full"
           />
           <FormSelect
-            label="CERF Level"
-            name="cerfLevel"
+            label="CEFR Level"
+            name="cefrLevel"
             options={
-              Object.values(EnumCERFLevel).map((value) => ({
+              Object.values(EnumCEFRLevel).map((value) => ({
                 label: value,
                 value: value,
               })) || []

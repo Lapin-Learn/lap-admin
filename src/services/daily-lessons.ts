@@ -63,3 +63,19 @@ export const getLessonDetail = async (lessonId: string) => {
     await api.get(`daily-lessons/lessons/${lessonId}/questions`).json<{ data: LessonDetail }>()
   ).data;
 };
+
+export type ReorderLessonParams = {
+  bandScore: EnumBandScore;
+  reorderLessons: {
+    lessonId: number;
+    order: number;
+  }[];
+};
+
+export const reorderLessons = async (params: ReorderLessonParams & { questionTypeId: number }) => {
+  return (
+    await api
+      .put(`admin/question-types/${params.questionTypeId}`, { json: params })
+      .json<{ data: { lessons: Lesson[] } }>()
+  ).data;
+};
