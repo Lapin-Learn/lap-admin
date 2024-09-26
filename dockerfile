@@ -10,7 +10,7 @@ RUN pnpm install
 
 COPY . .
 
-ENV VITE_API_BASE_URL=https://lapinlearn.systems/api
+RUN mv stack.env .env
 
 RUN pnpm run build
 
