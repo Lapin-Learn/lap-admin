@@ -30,3 +30,12 @@ export enum EnumCEFRLevel {
   C2 = "C2",
   Any = "Any",
 }
+
+export enum EnumRank {
+  bronze = "bronze",
+  silver = "silver",
+  gold = "gold",
+  platinum = "platinum",
+  diamond = "diamond",
+  master = "master",
+}

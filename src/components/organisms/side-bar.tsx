@@ -1,4 +1,4 @@
-import { BookOpen, FileQuestion } from "lucide-react";
+import { BookOpen, FileQuestion, Users } from "lucide-react";
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 
 const features: SideBarFeatureProps[] = [
@@ -8,6 +8,7 @@ const features: SideBarFeatureProps[] = [
     label: "Daily lessons",
   },
   { to: "/questions", icon: <FileQuestion size={16} />, label: "Questions" },
+  { to: "/users", icon: <Users size={16} />, label: "Users" },
 ];
 export default function SideBar() {
   return (
