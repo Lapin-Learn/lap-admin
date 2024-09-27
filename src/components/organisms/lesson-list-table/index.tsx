@@ -27,8 +27,10 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
   const reorderLessonsMutation = useReorderLessons(questionTypeId);
+  const sortedData = _.sortBy(data, ["order"]);
+
   const table = useReactTable({
-    data,
+    data: sortedData,
     columns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -40,9 +42,7 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
   });
 
   const onChangeRows = (newLessons: Lesson[]) => {
-    if (!_.isEqual(newLessons, data) && data.length > 1) {
-      console.log(newLessons);
-      console.log(data);
+    if (!_.isEqual(newLessons, sortedData) && sortedData.length > 1) {
       reorderLessonsMutation.mutate({
         bandScore,
         reorderLessons: newLessons.map((lesson, index) => ({
