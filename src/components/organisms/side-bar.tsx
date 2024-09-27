@@ -1,4 +1,5 @@
 import { BookOpen, FileQuestion, Users } from "lucide-react";
+
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 
 const features: SideBarFeatureProps[] = [

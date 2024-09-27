@@ -1,12 +1,14 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+
 import {
   createQuestion,
   getQuestions,
   updateQuestion,
   UpdateQuestionParams,
 } from "@/services/questions";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { useToast } from "../use-toast";
-import { useNavigate } from "@tanstack/react-router";
 
 const QuestionKeys = {
   key: ["questions"],

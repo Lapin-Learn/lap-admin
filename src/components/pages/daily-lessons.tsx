@@ -1,17 +1,19 @@
-import { BookOpen, ChartColumnDecreasing, Search } from "lucide-react";
-import { Input } from "../ui/input";
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
 } from "@components/ui/accordion";
-import { EnumSkill } from "@/lib/enums";
-import { useGetQuestionTypes } from "@/hooks/react-query/useDailyLessons";
-import { Button } from "../ui/button";
-import QuestionTypeDetail from "../organisms/question-type-detail";
 import { Link, useSearch } from "@tanstack/react-router";
+import { BookOpen, ChartColumnDecreasing, Search } from "lucide-react";
+
+import { useGetQuestionTypes } from "@/hooks/react-query/useDailyLessons";
+import { EnumSkill } from "@/lib/enums";
+
 import CreateQuestionTypeDialog from "../organisms/create-question-type-dialog";
+import QuestionTypeDetail from "../organisms/question-type-detail";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Typography } from "../ui/typography";
 
 export default function DailyLessonsPage() {

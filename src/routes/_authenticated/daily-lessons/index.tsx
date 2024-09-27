@@ -1,7 +1,8 @@
-import DailyLessonsPage from "@/components/pages/daily-lessons";
-import { EnumSkill } from "@/lib/enums";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+
+import DailyLessonsPage from "@/components/pages/daily-lessons";
+import { EnumSkill } from "@/lib/enums";
 
 const searchSchema = z.object({
   skill: z.nativeEnum(EnumSkill).catch(EnumSkill.reading),

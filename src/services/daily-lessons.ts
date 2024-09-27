@@ -1,6 +1,7 @@
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
-import api from "./kyInstance";
 import { Question } from "@/lib/types/questions";
+
+import api from "./kyInstance";
 
 export type QuestionType = {
   id: number;

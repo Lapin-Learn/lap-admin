@@ -1,5 +1,6 @@
-import { getUsers } from "@/services/users";
 import { useQuery } from "@tanstack/react-query";
+
+import { getUsers } from "@/services/users";
 
 const UserKeys = {
   key: ["users"],

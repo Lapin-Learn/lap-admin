@@ -1,10 +1,12 @@
+import { Row } from "@tanstack/react-table";
+import { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import DraggableRow from "./draggable-row";
-import { Row } from "@tanstack/react-table";
-import { Lesson } from "@/services";
-import { useCallback, useEffect, useState } from "react";
+
 import { useDebounce } from "@/hooks/use-debounce";
+import { Lesson } from "@/services";
+
+import DraggableRow from "./draggable-row";
 
 type DraggableRowContainerProps = {
   rows: Row<Lesson>[];

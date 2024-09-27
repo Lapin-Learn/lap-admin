@@ -1,5 +1,6 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue,clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
 import { PagedData, PagingSchema } from "@/lib/types/pagination";
 
 export function cn(...inputs: ClassValue[]) {

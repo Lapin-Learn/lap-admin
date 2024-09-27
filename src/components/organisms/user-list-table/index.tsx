@@ -1,7 +1,9 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+
+import { IUser } from "@/lib/interfaces";
+
 import { BaseTable } from "../base-table";
 import { columns } from "./columns";
-import { IUser } from "@/lib/interfaces";
 
 export type UserListTableProps = {
   data: IUser[];

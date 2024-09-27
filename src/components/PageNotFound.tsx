@@ -1,6 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
+
+import { Button } from "@/components/ui/button";
 
 const PageNotFound = () => {
   const navigate = useNavigate();

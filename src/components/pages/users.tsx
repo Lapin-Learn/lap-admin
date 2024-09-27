@@ -1,7 +1,9 @@
 import { Users } from "lucide-react";
-import { Typography } from "../ui/typography";
+
 import { useGetUsers } from "@/hooks/react-query/useUsers";
+
 import UserListTable from "../organisms/user-list-table";
+import { Typography } from "../ui/typography";
 
 export default function UserListPage() {
   const { data } = useGetUsers();

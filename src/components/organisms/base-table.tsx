@@ -1,3 +1,6 @@
+import { ColumnDef, flexRender, Table as TableProps } from "@tanstack/react-table";
+import { ReactNode } from "react";
+
 import {
   Table,
   TableBody,
@@ -7,8 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
-import { ColumnDef, flexRender, Table as TableProps } from "@tanstack/react-table";
 
 export interface BaseTableProps<T> {
   table: TableProps<T>;

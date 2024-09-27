@@ -1,3 +1,8 @@
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { Link } from "@tanstack/react-router";
+import { ColumnDef } from "@tanstack/react-table";
+
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -5,11 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { ColumnDef } from "@tanstack/react-table";
 import { Lesson } from "@/services";
-import { Link } from "@tanstack/react-router";
 export const columns: ColumnDef<Lesson>[] = [
   {
     id: "select",

@@ -1,11 +1,12 @@
-import { TableCell, TableRow } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import { Lesson } from "@/services";
 import { flexRender, Row } from "@tanstack/react-table";
 import type { XYCoord } from "dnd-core";
 import type { FC } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+
+import { TableCell, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+import { Lesson } from "@/services";
 
 const ItemTypes = {
   ROW: "row",

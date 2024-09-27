@@ -1,18 +1,20 @@
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
-import { Accordion, AccordionContent, AccordionTrigger, AccordionItem } from "../ui/accordion";
-import { bandScores } from "@/lib/consts";
-import { Badge } from "../ui/badge";
 import { useSearch } from "@tanstack/react-router";
+import dayjs from "dayjs";
+import { useMemo } from "react";
+
 import {
   useGetLessonsOfQuestionType,
   useGetQuestionTypes,
 } from "@/hooks/react-query/useDailyLessons";
+import { bandScores } from "@/lib/consts";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
-import LessonListTable from "./lesson-list-table";
-import { useMemo } from "react";
 import { QuestionType } from "@/services";
-import dayjs from "dayjs";
+
+import { Accordion, AccordionContent, AccordionItem,AccordionTrigger } from "../ui/accordion";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
+import LessonListTable from "./lesson-list-table";
 
 export default function QuestionTypeDetail() {
   const { questionType: questionTypeId, skill } = useSearch({ strict: false });

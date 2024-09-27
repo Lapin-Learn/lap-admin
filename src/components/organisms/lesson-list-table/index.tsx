@@ -1,21 +1,23 @@
-import React from "react";
-import _ from "lodash";
 import { flexRender, getCoreRowModel, SortingState, useReactTable } from "@tanstack/react-table";
-import { columns } from "./columns";
-import { Lesson } from "@/services";
+import _ from "lodash";
+import React from "react";
+
 import {
   Table,
-  TableHeader,
-  TableRow,
-  TableHead,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import NewLessonRow from "./new-lesson-row";
-import { EnumBandScore } from "@/lib/enums";
 import { useReorderLessons } from "@/hooks/react-query/useDailyLessons";
+import { EnumBandScore } from "@/lib/enums";
+import { cn } from "@/lib/utils";
+import { Lesson } from "@/services";
+
+import { columns } from "./columns";
 import DraggableRowContainer from "./draggable-row-container";
+import NewLessonRow from "./new-lesson-row";
 
 export type LessonListTableProps = {
   data: Lesson[];

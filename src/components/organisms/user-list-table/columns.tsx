@@ -1,16 +1,17 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { IUser } from "@/lib/interfaces";
-import { Typography } from "@/components/ui/typography";
-import dayjs from "dayjs";
 import { Button } from "@components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
+import { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Typography } from "@/components/ui/typography";
+import { IUser } from "@/lib/interfaces";
 
 export const columns: ColumnDef<IUser>[] = [
   {
