@@ -1,11 +1,13 @@
 import { LogOut } from "lucide-react";
+
+import { useSignOut } from "@/hooks/react-query/useAuth";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuTrigger,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useSignOut } from "@/hooks/react-query/useAuth";
 
 export default function NavBar() {
   const signOutMutation = useSignOut();

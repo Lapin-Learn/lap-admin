@@ -1,6 +1,7 @@
+import { z } from "zod";
+
 import { EnumCEFRLevel } from "@/lib/enums";
 import { EnumQuestion } from "@/lib/types/questions";
-import { z } from "zod";
 
 const questionSchema = z.object({
   options: z.array(z.string()).min(2, "At least 2 options are required"),

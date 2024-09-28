@@ -1,9 +1,9 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import { getAuthUser, signOut } from "@/services";
-import { authKeys } from "@/hooks/react-query/useAuth";
 import DashboardLayout from "@/components/layouts/dashboard";
+import { authKeys } from "@/hooks/react-query/useAuth";
+import { getAuthUser, getAuthValueFromStorage, signOut } from "@/services";
 
 const AuthenticatedPage = () => {
   return (
@@ -16,6 +16,9 @@ const AuthenticatedPage = () => {
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ location, context: { queryClient } }) => {
     try {
+      if (!getAuthValueFromStorage()) {
+        return redirect({ to: "/log-in" });
+      }
       const user = await queryClient?.ensureQueryData({
         queryKey: authKeys.detail(),
         queryFn: () => getAuthUser(),

@@ -1,5 +1,5 @@
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import React, { Suspense } from "react";
 
 const TanStackRouterDevtools = import.meta.env.PROD

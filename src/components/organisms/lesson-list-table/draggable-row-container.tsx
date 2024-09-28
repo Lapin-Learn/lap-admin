@@ -1,14 +1,16 @@
+import { Row } from "@tanstack/react-table";
+import { useCallback, useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import DraggableRow from "./draggable-row";
-import { Row } from "@tanstack/react-table";
-import { Lesson } from "@/services";
-import { useCallback, useEffect, useState } from "react";
+
 import { useDebounce } from "@/hooks/use-debounce";
+import { ILesson } from "@/lib/interfaces";
+
+import DraggableRow from "./draggable-row";
 
 type DraggableRowContainerProps = {
-  rows: Row<Lesson>[];
-  onChange: (newRows: Lesson[]) => void;
+  rows: Row<ILesson>[];
+  onChange: (newRows: ILesson[]) => void;
   debouncedTime?: number;
 };
 export default function DraggableRowContainer({
@@ -16,8 +18,8 @@ export default function DraggableRowContainer({
   onChange,
   debouncedTime = 2000,
 }: DraggableRowContainerProps) {
-  const [lessons, setLessons] = useState<Row<Lesson>[]>(rows);
-  const debouncedLessons = useDebounce<Row<Lesson>[]>(lessons, debouncedTime);
+  const [lessons, setLessons] = useState<Row<ILesson>[]>(rows);
+  const debouncedLessons = useDebounce<Row<ILesson>[]>(lessons, debouncedTime);
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
     setLessons((prevLessons) => {
       const newLessons = [...prevLessons];

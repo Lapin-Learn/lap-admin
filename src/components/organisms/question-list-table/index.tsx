@@ -1,6 +1,8 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { BaseTable } from "../base-table";
+
 import { Question } from "@/lib/types/questions";
+
+import { BaseTable } from "../base-table";
 import { columns } from "./columns";
 
 export type QuestionListTableProps = {

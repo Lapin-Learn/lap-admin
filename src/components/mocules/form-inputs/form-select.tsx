@@ -1,19 +1,20 @@
+import { useFormContext } from "react-hook-form";
+
 import {
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
-  FormDescription,
   FormMessage,
 } from "@/components/ui/form";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
-import { useFormContext } from "react-hook-form";
 
 export type FormSelectProps = {
   name: string;

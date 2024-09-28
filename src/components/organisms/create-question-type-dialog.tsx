@@ -1,14 +1,3 @@
-import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "../ui/dialog";
 import {
   Form,
   FormControl,
@@ -17,13 +6,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@components/ui/form";
-import { z } from "zod";
-import { EnumSkill } from "@/lib/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { useCreateQuestionType } from "@/hooks/react-query/useDailyLessons";
+import { EnumSkill } from "@/lib/enums";
+
+import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useCreateQuestionType } from "@/hooks/react-query/useDailyLessons";
-import { useState } from "react";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required"),

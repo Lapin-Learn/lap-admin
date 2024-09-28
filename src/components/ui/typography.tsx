@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
+
+import { cn } from "@/lib/utils";
 
 const typographyVariants = cva("", {
   variants: {
@@ -12,7 +13,7 @@ const typographyVariants = cva("", {
       h5: "text-lg font-semibold",
       h6: "text-base font-medium",
       subtitle1: "text-base font-medium",
-      subtitle2: "text-sm",
+      subtitle2: "text-sm font-semibold",
       body1: "text-base",
       body2: "text-sm",
       caption: "text-xs italic",

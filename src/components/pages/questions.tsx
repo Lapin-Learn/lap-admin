@@ -1,9 +1,11 @@
-import { FileQuestion } from "lucide-react";
-import { Typography } from "../ui/typography";
-import QuestionListTable from "../organisms/question-list-table";
-import { useGetQuestions } from "@/hooks/react-query/useQuestions";
-import { Button } from "../ui/button";
 import { useNavigate } from "@tanstack/react-router";
+import { FileQuestion } from "lucide-react";
+
+import { useGetQuestions } from "@/hooks/react-query/useQuestions";
+
+import QuestionListTable from "../organisms/question-list-table";
+import { Button } from "../ui/button";
+import { Typography } from "../ui/typography";
 
 export default function QuestionListPage() {
   const { data } = useGetQuestions();

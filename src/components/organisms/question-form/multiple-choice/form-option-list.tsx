@@ -1,10 +1,11 @@
+import { Check, X } from "lucide-react";
+import { useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
-import { FormField, FormItem, FormLabel, FormDescription, FormMessage } from "@/components/ui/form";
+import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Typography } from "@/components/ui/typography";
-import { Check, X } from "lucide-react";
-import { useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form";
 
 export type FormSelectProps = {
   name: string;

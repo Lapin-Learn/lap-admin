@@ -1,14 +1,16 @@
-import { useGetLessonDetail } from "@/hooks/react-query/useDailyLessons";
-import { Route } from "@/routes/_authenticated/daily-lessons/$lessonId";
-import { RadioGroupItem, RadioGroup } from "../ui/radio-group";
-import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
-import { Checkbox } from "../ui/checkbox";
-import { Button } from "../ui/button";
-import { useRef } from "react";
-import { Separator } from "../ui/separator";
 import { Plus } from "lucide-react";
+import { useRef } from "react";
+
+import { useGetLessonDetail } from "@/hooks/react-query/useDailyLessons";
+import { cn } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/daily-lessons/$lessonId";
+
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
+import { RadioGroup,RadioGroupItem } from "../ui/radio-group";
+import { Separator } from "../ui/separator";
 
 export default function LessonDetailPage() {
   const { lessonId } = Route.useParams();

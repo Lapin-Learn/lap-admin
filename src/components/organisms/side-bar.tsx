@@ -1,4 +1,7 @@
-import { BookOpen, FileQuestion } from "lucide-react";
+import { BookOpen, FileQuestion, Users } from "lucide-react";
+
+import Logo from "@/assets/logo.svg";
+
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 
 const features: SideBarFeatureProps[] = [
@@ -8,12 +11,15 @@ const features: SideBarFeatureProps[] = [
     label: "Daily lessons",
   },
   { to: "/questions", icon: <FileQuestion size={16} />, label: "Questions" },
+  { to: "/users", icon: <Users size={16} />, label: "User management" },
 ];
+
 export default function SideBar() {
   return (
     <aside>
       <div className="relative flex h-full w-[240px] flex-col border-r py-[36px]">
         <nav className="w-full">
+          <img src={Logo} className="ml-5 h-6" />
           <ul className="flex w-full flex-col space-y-2 overflow-hidden pt-6">
             {features.map((feat, idx) => {
               if (typeof feat === "object")

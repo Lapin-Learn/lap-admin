@@ -1,8 +1,9 @@
-import { Separator } from "../ui/separator";
-import { Typography } from "../ui/typography";
 import { useCreateQuestion } from "@/hooks/react-query/useQuestions";
+
 import QuestionForm from "../organisms/question-form";
 import { BaseCreateQuestion } from "../organisms/question-form/validation";
+import { Separator } from "../ui/separator";
+import { Typography } from "../ui/typography";
 
 export default function CreateQuestionPage() {
   const createQuestion = useCreateQuestion();
