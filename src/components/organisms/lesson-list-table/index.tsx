@@ -12,15 +12,15 @@ import {
 } from "@/components/ui/table";
 import { useReorderLessons } from "@/hooks/react-query/useDailyLessons";
 import { EnumBandScore } from "@/lib/enums";
+import { ILesson } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { Lesson } from "@/services";
 
 import { columns } from "./columns";
 import DraggableRowContainer from "./draggable-row-container";
 import NewLessonRow from "./new-lesson-row";
 
 export type LessonListTableProps = {
-  data: Lesson[];
+  data: ILesson[];
   questionTypeId: number;
   bandScore: EnumBandScore;
 };
@@ -43,7 +43,7 @@ export default function LessonListTable({ data, questionTypeId, bandScore }: Les
     },
   });
 
-  const onChangeRows = (newLessons: Lesson[]) => {
+  const onChangeRows = (newLessons: ILesson[]) => {
     if (!_.isEqual(newLessons, sortedData) && sortedData.length > 1) {
       reorderLessonsMutation.mutate({
         bandScore,

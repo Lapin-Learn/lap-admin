@@ -1,5 +1,14 @@
 import { EnumBandScore, EnumRank, EnumSkill } from "./enums";
 
+export interface IBucket {
+  id: string;
+  name: string;
+  permission: string;
+  createdAt: string;
+  updatedAt: string;
+  uploadStatus: string;
+  url: string;
+}
 export interface IUser {
   id: string;
   username: string;
@@ -34,7 +43,8 @@ export interface IQuestionType {
   id: number;
   name: string;
   skill: EnumSkill;
-  imageId: string | null;
+  imageId: string | null; // The image ID to update via bucket service
+  image: IBucket | null; // The image URL
   updatedAt: string;
 }
 

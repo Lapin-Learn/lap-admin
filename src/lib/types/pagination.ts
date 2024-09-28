@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 export type FetchingData<T> = {
+  statusCode: number;
+  message: string;
   data: T;
 };
 

@@ -1,4 +1,4 @@
-import { type ClassValue,clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { PagedData, PagingSchema } from "@/lib/types/pagination";
@@ -29,7 +29,8 @@ export const generateSearchParams = (
   return params.toString();
 };
 
-export const fromOffsetToPage = <T>(value: PagedData<T>) => {
+export const fromOffsetToPage = <T, K extends string>(value: PagedData<T, K>) => {
+  if (!value.offset || !value.limit) return { page: 1, pageSize: 10 };
   return {
     page: Math.ceil(value.offset / value.limit) + 1,
     pageSize: value.limit,

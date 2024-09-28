@@ -5,8 +5,8 @@ import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import { TableCell, TableRow } from "@/components/ui/table";
+import { ILesson } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { Lesson } from "@/services";
 
 const ItemTypes = {
   ROW: "row",
@@ -25,7 +25,7 @@ interface DragItem {
   type: string;
 }
 
-const DraggableRow: FC<DraggableRowProps<Lesson>> = ({ id, index, moveRow, row }) => {
+const DraggableRow: FC<DraggableRowProps<ILesson>> = ({ id, index, moveRow, row }) => {
   const ref = useRef<HTMLTableRowElement>(null);
 
   const [, drop] = useDrop({

@@ -14,7 +14,7 @@ import {
   UpdateQuestionTypeParams,
 } from "@/services";
 
-import { toast, useToast } from "../use-toast";
+import { useToast } from "../use-toast";
 
 const QuestionTypeKeys = {
   key: ["question-types"],
@@ -81,7 +81,7 @@ export const useUpdateQuestionType = (questionTypeId: number) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   return useMutation({
-    mutationFn: (params: UpdateQuestionTypeParams) =>
+    mutationFn: (params: Partial<UpdateQuestionTypeParams>) =>
       updateQuestionType({ ...params, questionTypeId }),
     onSuccess: (returnData) => {
       queryClient.setQueryData(QuestionTypeKeys.list(), (oldData: QuestionTypeList) => {

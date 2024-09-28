@@ -10,8 +10,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Lesson } from "@/services";
-export const columns: ColumnDef<Lesson>[] = [
+import { ILesson } from "@/lib/interfaces";
+
+export const columns: ColumnDef<ILesson>[] = [
   {
     id: "select",
     header: ({ table }) => (

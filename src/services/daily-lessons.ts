@@ -73,9 +73,10 @@ export const reorderLessons = async (params: ReorderLessonParams & { questionTyp
 
 export type UpdateQuestionTypeParams = {
   name: string;
+  imageId: string;
 };
 export const updateQuestionType = async (
-  params: UpdateQuestionTypeParams & { questionTypeId: number }
+  params: Partial<UpdateQuestionTypeParams> & { questionTypeId: number }
 ) => {
   return (
     await api
