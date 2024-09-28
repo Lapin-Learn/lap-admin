@@ -1,24 +1,11 @@
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
+import { ILesson, IQuestionType } from "@/lib/interfaces";
+import { FetchingData } from "@/lib/types/pagination";
 import { Question } from "@/lib/types/questions";
 
 import api from "./kyInstance";
 
-export type QuestionType = {
-  id: number;
-  name: string;
-  skill: EnumSkill;
-  imageId: string | null;
-  updatedAt: string;
-};
-
-export type Lesson = {
-  id: number;
-  name: string;
-  order: number;
-  bandScore: EnumBandScore;
-};
-
-export type LessonDetail = Omit<Lesson, "bandScore"> & {
+export type LessonDetail = Omit<ILesson, "bandScore"> & {
   questionToLessons: {
     question: Question;
     order: number;
@@ -26,15 +13,16 @@ export type LessonDetail = Omit<Lesson, "bandScore"> & {
   }[];
 };
 
-export type QuestionTypeList = Record<EnumSkill, QuestionType[]>;
-export type LessonList = Record<EnumBandScore, Lesson[]>;
+export type QuestionTypeList = Record<EnumSkill, IQuestionType[]>;
+export type LessonList = Record<EnumBandScore, ILesson[]>;
 
 export const getQuestionTypes = async () => {
-  return (await api.get("admin/question-types").json<{ data: QuestionTypeList }>()).data;
+  return (await api.get("admin/question-types").json<FetchingData<QuestionTypeList>>()).data;
 };
 
 export const getLessonsOfQuestionType = async (questionType: number) => {
-  return (await api.get(`admin/question-types/${questionType}`).json<{ data: LessonList }>()).data;
+  return (await api.get(`admin/question-types/${questionType}`).json<FetchingData<LessonList>>())
+    .data;
 };
 
 type CreateLessonParams = {
@@ -44,7 +32,7 @@ type CreateLessonParams = {
 };
 
 export const createLesson = async (lesson: CreateLessonParams) => {
-  return (await api.post(`admin/lessons`, { json: lesson }).json<{ data: Lesson }>()).data;
+  return (await api.post(`admin/lessons`, { json: lesson }).json<FetchingData<ILesson>>()).data;
 };
 
 type CreateQuestionTypeParams = {
@@ -55,13 +43,15 @@ type CreateQuestionTypeParams = {
 
 export const createQuestionType = async (questionType: CreateQuestionTypeParams) => {
   return (
-    await api.post("admin/question-types", { json: questionType }).json<{ data: QuestionType }>()
+    await api
+      .post("admin/question-types", { json: questionType })
+      .json<FetchingData<IQuestionType>>()
   ).data;
 };
 
 export const getLessonDetail = async (lessonId: string) => {
   return (
-    await api.get(`daily-lessons/lessons/${lessonId}/questions`).json<{ data: LessonDetail }>()
+    await api.get(`daily-lessons/lessons/${lessonId}/questions`).json<FetchingData<LessonDetail>>()
   ).data;
 };
 
@@ -77,6 +67,19 @@ export const reorderLessons = async (params: ReorderLessonParams & { questionTyp
   return (
     await api
       .put(`admin/question-types/${params.questionTypeId}`, { json: params })
-      .json<{ data: { lessons: Lesson[] } }>()
+      .json<FetchingData<{ lessons: ILesson[] }>>()
+  ).data;
+};
+
+export type UpdateQuestionTypeParams = {
+  name: string;
+};
+export const updateQuestionType = async (
+  params: UpdateQuestionTypeParams & { questionTypeId: number }
+) => {
+  return (
+    await api
+      .put(`admin/question-types/${params.questionTypeId}`, { json: params })
+      .json<FetchingData<IQuestionType>>()
   ).data;
 };

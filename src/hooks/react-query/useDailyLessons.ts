@@ -10,9 +10,11 @@ import {
   QuestionTypeList,
   ReorderLessonParams,
   reorderLessons,
+  updateQuestionType,
+  UpdateQuestionTypeParams,
 } from "@/services";
 
-import { useToast } from "../use-toast";
+import { toast, useToast } from "../use-toast";
 
 const QuestionTypeKeys = {
   key: ["question-types"],
@@ -75,6 +77,33 @@ export const useCreateQuestionType = () => {
   });
 };
 
+export const useUpdateQuestionType = (questionTypeId: number) => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  return useMutation({
+    mutationFn: (params: UpdateQuestionTypeParams) =>
+      updateQuestionType({ ...params, questionTypeId }),
+    onSuccess: (returnData) => {
+      queryClient.setQueryData(QuestionTypeKeys.list(), (oldData: QuestionTypeList) => {
+        const oldQTs = oldData[returnData.skill];
+        return {
+          ...oldData,
+          [returnData.skill]: oldQTs.map((QT) => {
+            if (QT.id == returnData.id) return returnData;
+            else return QT;
+          }),
+        };
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+};
 export const useGetLessonDetail = (lessonId: string) => {
   return useQuery({
     queryKey: LessonKeys.detail(lessonId),

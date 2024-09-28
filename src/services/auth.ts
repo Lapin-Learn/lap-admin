@@ -1,3 +1,4 @@
+import { FetchingData } from "@/lib/types/pagination";
 import api, { apiAuth } from "@/services/kyInstance";
 
 const delay = 500;
@@ -25,15 +26,12 @@ export const getAuthValueFromStorage = () => {
 };
 
 export const getAuthUser = async () => {
-  return (await api.get("users/profile").json<{ data: AuthUser }>()).data;
+  return (await api.get("users/profile").json<FetchingData<AuthUser>>()).data;
 };
 
 export const signIn = async (params: SignInParams) => {
-  const data = (
-    await apiAuth.post("auth/signin", { json: params }).json<{
-      data: AuthInfo;
-    }>()
-  ).data;
+  const data = (await apiAuth.post("auth/signin", { json: params }).json<FetchingData<AuthInfo>>())
+    .data;
   localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
   return data;
 };

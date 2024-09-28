@@ -1,4 +1,4 @@
-import { EnumRank } from "./enums";
+import { EnumBandScore, EnumRank, EnumSkill } from "./enums";
 
 export interface IUser {
   id: string;
@@ -28,4 +28,19 @@ export interface IStreak {
   current: number;
   target: number;
   record: number;
+}
+
+export interface IQuestionType {
+  id: number;
+  name: string;
+  skill: EnumSkill;
+  imageId: string | null;
+  updatedAt: string;
+}
+
+export interface ILesson {
+  id: number;
+  name: string;
+  order: number;
+  bandScore: EnumBandScore;
 }

@@ -30,32 +30,20 @@ export const columns: ColumnDef<IUser>[] = [
     },
   },
   {
+    accessorKey: "username",
+    header: "Username",
+  },
+  {
     accessorKey: "role",
     header: "Role",
   },
   {
-    accessorKey: "learnerProfile.rank",
-    header: "Rank",
-    cell: ({ row }) => {
-      const { learnerProfile } = row.original;
-      return (
-        <Typography className="capitalize" variant="body2">
-          {learnerProfile?.rank}
-        </Typography>
-      );
-    },
+    accessorKey: "dob",
+    header: "Day of birth",
   },
   {
-    accessorKey: "learnerProfile.levelId",
-    header: "Level",
-  },
-  {
-    accessorKey: "learnerProfile.xp",
-    header: "Experience",
-  },
-  {
-    accessorKey: "learnerProfile.carrots",
-    header: "Carrots",
+    accessorKey: "gender",
+    header: "Gender",
   },
   {
     accessorKey: "createdAt",

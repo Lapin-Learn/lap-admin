@@ -5,22 +5,24 @@ import { useMemo } from "react";
 import {
   useGetLessonsOfQuestionType,
   useGetQuestionTypes,
+  useUpdateQuestionType,
 } from "@/hooks/react-query/useDailyLessons";
 import { bandScores } from "@/lib/consts";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
-import { QuestionType } from "@/services";
+import { IQuestionType } from "@/lib/interfaces";
 
-import { Accordion, AccordionContent, AccordionItem,AccordionTrigger } from "../ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import LessonListTable from "./lesson-list-table";
+import HoverTextInput from "../mocules/hover-text-input";
 
 export default function QuestionTypeDetail() {
   const { questionType: questionTypeId, skill } = useSearch({ strict: false });
   const { data: lessons } = useGetLessonsOfQuestionType(questionTypeId);
   const { data: questionTypes } = useGetQuestionTypes();
-  const questionType: QuestionType | null = useMemo(() => {
+  const questionType: IQuestionType | null = useMemo(() => {
     if (questionTypes) {
       return (
         questionTypes[skill as keyof typeof EnumSkill].find((qt) => qt.id === questionTypeId) ||
@@ -29,6 +31,7 @@ export default function QuestionTypeDetail() {
     }
     return null;
   }, [questionTypes, questionTypeId, skill]);
+  const updateQuestionTypeMutation = useUpdateQuestionType(questionTypeId);
   if (lessons)
     return (
       <div>
@@ -40,7 +43,15 @@ export default function QuestionTypeDetail() {
           />
           <div className="w-full flex-1">
             <div className="flex items-baseline justify-between">
-              <h5 className="text-2xl font-semibold">{questionType?.name}</h5>
+              <HoverTextInput
+                onSubmit={(value) => {
+                  updateQuestionTypeMutation.mutate({
+                    name: value,
+                  });
+                }}
+              >
+                {questionType?.name}
+              </HoverTextInput>
               <p className="text-sm text-muted-foreground">
                 Last update: {dayjs(questionType?.updatedAt).format("MM/DD/YY")}
               </p>
