@@ -24,5 +24,6 @@ module.exports = {
     "no-empty-pattern": "off",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
+    "no-console": ["warn", { allow: ["warn", "error"] }], // Disallow console.log, allow console.warn and console.error
   },
 };
