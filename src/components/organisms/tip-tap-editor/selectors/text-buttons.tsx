@@ -1,4 +1,10 @@
-import { BoldIcon, CodeIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from "lucide-react";
+import {
+  CodeIcon,
+  FontBoldIcon,
+  FontItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+} from "@radix-ui/react-icons";
 import { EditorBubbleItem, useEditor } from "novel";
 
 import { Button } from "@/components/ui/button";
@@ -15,13 +21,13 @@ export const TextButtons = () => {
       name: "bold",
       isActive: (editor) => editor.isActive("bold"),
       command: (editor) => editor.chain().focus().toggleBold().run(),
-      icon: BoldIcon,
+      icon: FontBoldIcon,
     },
     {
       name: "italic",
       isActive: (editor) => editor.isActive("italic"),
       command: (editor) => editor.chain().focus().toggleItalic().run(),
-      icon: ItalicIcon,
+      icon: FontItalicIcon,
     },
     {
       name: "underline",

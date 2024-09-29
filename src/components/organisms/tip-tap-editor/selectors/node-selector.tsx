@@ -1,3 +1,4 @@
+import { QuoteIcon } from "@radix-ui/react-icons";
 import { Popover } from "@radix-ui/react-popover";
 import {
   Check,
@@ -7,19 +8,19 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  List,
   ListOrdered,
-  type LucideIcon,
   TextIcon,
-  TextQuote,
 } from "lucide-react";
 import { EditorBubbleItem, EditorInstance, useEditor } from "novel";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export type SelectorItem = {
   name: string;
-  icon: LucideIcon;
+  icon: React.ElementType;
   command: (editor: EditorInstance) => void;
   isActive: (editor: EditorInstance) => boolean;
 };
@@ -61,7 +62,7 @@ const items: SelectorItem[] = [
   },
   {
     name: "Bullet List",
-    icon: ListOrdered,
+    icon: List,
     command: (editor) => editor.chain().focus().clearNodes().toggleBulletList().run(),
     isActive: (editor) => editor.isActive("bulletList"),
   },
@@ -73,7 +74,7 @@ const items: SelectorItem[] = [
   },
   {
     name: "Quote",
-    icon: TextQuote,
+    icon: QuoteIcon,
     command: (editor) => editor.chain().focus().clearNodes().toggleBlockquote().run(),
     isActive: (editor) => editor.isActive("blockquote"),
   },
@@ -105,7 +106,7 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
       >
         <Button size="sm" variant="ghost" className="gap-2">
           <span className="whitespace-nowrap text-sm">{activeItem.name}</span>
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className="size-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent sideOffset={5} align="start" className="w-48 p-1">

@@ -9,8 +9,9 @@ import {
   type JSONContent,
 } from "novel";
 import { handleCommandNavigation } from "novel/extensions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import { Button } from "@/components/ui";
 import { Separator } from "@/components/ui/separator";
 
 import { defaultExtensions } from "./extensions";
@@ -23,13 +24,12 @@ import { slashCommand, suggestionItems } from "./slash-command";
 
 type EditorProps = {
   initialValue?: JSONContent;
-  onChange: (value: JSONContent) => void;
+  onChange: (value: string) => void;
 };
 
 const extensions = [...defaultExtensions, slashCommand];
 
 export default function TailwindAdvancedEditor({ initialValue, onChange }: EditorProps) {
-  const [initialContent, setInitialContent] = useState<JSONContent>(initialValue || {});
   // const [saveStatus, setSaveStatus] = useState<string | null>(null);
 
   const [openNode, setOpenNode] = useState(false);
@@ -43,21 +43,11 @@ export default function TailwindAdvancedEditor({ initialValue, onChange }: Edito
   //   setSaveStatus("Đã lưu");
   // }, 500);
 
-  useEffect(() => {
-    if (!initialValue) {
-      const content = window.localStorage.getItem("novel-content");
-      if (content) setInitialContent(JSON.parse(content));
-      else setInitialContent({});
-    }
-  }, [initialValue]);
-
-  if (!initialContent) return null;
-
   return (
     <EditorRoot>
       <EditorContent
         slotBefore={<MenuBar />}
-        className="rounded-xl border p-4"
+        className="rounded-xl border p-6"
         {...(initialValue && { initialContent: initialValue })}
         extensions={extensions}
         editorProps={{
@@ -68,11 +58,11 @@ export default function TailwindAdvancedEditor({ initialValue, onChange }: Edito
           // handleDrop: (view, event, _slice, moved) =>
           //   handleImageDrop(view, event, moved, uploadFn),
           attributes: {
-            class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+            class: `prose prose-strong:text-current prose-h1:mb-2 prose-h2:my-2 prose-p:my-0 prose-md dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
           },
         }}
         onUpdate={({ editor }) => {
-          onChange(editor.getJSON());
+          onChange(editor.getHTML());
         }}
         // slotAfter={<ImageResizer />}
       >

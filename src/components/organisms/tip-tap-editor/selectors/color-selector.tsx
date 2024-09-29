@@ -15,18 +15,6 @@ const TEXT_COLORS: BubbleColorMenuItem[] = [
     color: "var(--novel-black)",
   },
   {
-    name: "Purple",
-    color: "#9333EA",
-  },
-  {
-    name: "Red",
-    color: "#E00000",
-  },
-  {
-    name: "Yellow",
-    color: "#EAB308",
-  },
-  {
     name: "Blue",
     color: "#2563EB",
   },
@@ -36,11 +24,7 @@ const TEXT_COLORS: BubbleColorMenuItem[] = [
   },
   {
     name: "Orange",
-    color: "#FFA500",
-  },
-  {
-    name: "Pink",
-    color: "#BA4081",
+    color: "#EE5D28",
   },
   {
     name: "Gray",
@@ -54,36 +38,20 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
     color: "var(--novel-highlight-default)",
   },
   {
-    name: "Purple",
-    color: "var(--novel-highlight-purple)",
-  },
-  {
-    name: "Red",
-    color: "var(--novel-highlight-red)",
-  },
-  {
-    name: "Yellow",
-    color: "var(--novel-highlight-yellow)",
-  },
-  {
     name: "Blue",
-    color: "var(--novel-highlight-blue)",
+    color: "#2563EB",
   },
   {
     name: "Green",
-    color: "var(--novel-highlight-green)",
+    color: "#008A00",
   },
   {
     name: "Orange",
-    color: "var(--novel-highlight-orange)",
-  },
-  {
-    name: "Pink",
-    color: "var(--novel-highlight-pink)",
+    color: "#EE5D28",
   },
   {
     name: "Gray",
-    color: "var(--novel-highlight-gray)",
+    color: "#A8A29E",
   },
 ];
 
