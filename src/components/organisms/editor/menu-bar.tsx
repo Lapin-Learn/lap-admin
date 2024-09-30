@@ -2,7 +2,6 @@ import {
   CodeIcon,
   FontBoldIcon,
   FontItalicIcon,
-  ListBulletIcon,
   QuoteIcon,
   StrikethroughIcon,
   UnderlineIcon,

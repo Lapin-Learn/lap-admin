@@ -11,7 +11,6 @@ import {
 import { handleCommandNavigation } from "novel/extensions";
 import { useState } from "react";
 
-import { Button } from "@/components/ui";
 import { Separator } from "@/components/ui/separator";
 
 import { defaultExtensions } from "./extensions";
