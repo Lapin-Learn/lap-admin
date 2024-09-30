@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import TailwindAdvancedEditor from "../organisms/tip-tap-editor/advanced-editor";
+import TailwindAdvancedEditor from "../organisms/editor/advanced-editor";
 import { Button } from "../ui";
 
 export default function InstructionsPage() {

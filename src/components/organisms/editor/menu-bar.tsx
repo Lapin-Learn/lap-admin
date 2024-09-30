@@ -83,6 +83,7 @@ export default function MenuBar() {
         </ToggleGroupItem>
       </ToggleGroup>
       <Button
+        type="button"
         variant={editor.isActive("code") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}
@@ -91,6 +92,7 @@ export default function MenuBar() {
         <CodeIcon />
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 1 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive("heading", { level: 1 }) ? "is-active" : ""}
@@ -98,6 +100,7 @@ export default function MenuBar() {
         H1
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 2 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={editor.isActive("heading", { level: 2 }) ? "is-active" : ""}
@@ -105,6 +108,7 @@ export default function MenuBar() {
         H2
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 3 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
@@ -112,6 +116,7 @@ export default function MenuBar() {
         H3
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 4 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
         className={editor.isActive("heading", { level: 4 }) ? "is-active" : ""}
@@ -119,6 +124,7 @@ export default function MenuBar() {
         H4
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 5 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
         className={editor.isActive("heading", { level: 5 }) ? "is-active" : ""}
@@ -126,6 +132,7 @@ export default function MenuBar() {
         H5
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("heading", { level: 6 }) ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
         className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}
@@ -133,6 +140,7 @@ export default function MenuBar() {
         H6
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("bulletList") ? "default" : "secondary"}
         className="size-9 p-2"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -140,6 +148,7 @@ export default function MenuBar() {
         <ListIcon />
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("orderedList") ? "default" : "secondary"}
         className="size-9 p-2"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -147,6 +156,7 @@ export default function MenuBar() {
         <ListOrderedIcon />
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("codeBlock") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={editor.isActive("codeBlock") ? "is-active" : ""}
@@ -154,16 +164,22 @@ export default function MenuBar() {
         Code block
       </Button>
       <Button
+        type="button"
         variant={editor.isActive("blockquote") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={editor.isActive("blockquote") ? "is-active" : ""}
       >
         <QuoteIcon />
       </Button>
-      <Button variant="secondary" onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+      <Button
+        type="button"
+        variant="secondary"
+        onClick={() => editor.chain().focus().setHorizontalRule().run()}
+      >
         Horizontal rule
       </Button>
       <Button
+        type="button"
         variant="secondary"
         className="size-9 p-2"
         onClick={() => editor.chain().focus().undo().run()}
@@ -172,6 +188,7 @@ export default function MenuBar() {
         <Undo />
       </Button>
       <Button
+        type="button"
         variant="secondary"
         className="size-9 p-2"
         onClick={() => editor.chain().focus().redo().run()}

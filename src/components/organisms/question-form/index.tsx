@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { generateJSON } from "@tiptap/core";
 import { useEffect } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
@@ -19,6 +20,8 @@ import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
 import { EnumCEFRLevel } from "@/lib/enums";
 import { EnumQuestion, Question } from "@/lib/types/questions";
 
+import TailwindAdvancedEditor from "../editor/advanced-editor";
+import { defaultExtensions } from "../editor/extensions";
 import MultipleChoice from "./multiple-choice";
 import { BaseCreateQuestion, baseCreateQuestionSchema } from "./validation";
 
@@ -28,7 +31,7 @@ type QuestionFormProps = {
   disabledSubmit?: boolean;
 };
 
-export default function CreateQuestionPage({
+export default function QuestionForm({
   onSubmit,
   defaultValues,
   disabledSubmit,
@@ -89,7 +92,26 @@ export default function CreateQuestionPage({
           )}
         />
         {createContentQuestion(form)}
-        <FormTextArea name="explanation" label="Explanation" />
+        <FormField
+          control={form.control}
+          name="explanation"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Explanation</FormLabel>
+              <FormControl>
+                <TailwindAdvancedEditor
+                  initialValue={generateJSON(field.value || "", defaultExtensions)}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* <FormTextArea name="explanation" label="Explanation" /> */}
         <Button className="w-fit" disabled={disabledSubmit ?? false}>
           {defaultValues ? "Save changes" : "Create question"}
         </Button>

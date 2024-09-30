@@ -12,7 +12,7 @@ import { Typography } from "../ui/typography";
 export default function QuestionDetailPage() {
   const { questionId } = Route.useParams();
   const updateQuestion = useUpdateQuestion(questionId);
-  const { data: questionList } = useGetQuestions();
+  const { data: questionList, isSuccess } = useGetQuestions();
   const onSubmit = (data: BaseCreateQuestion) => {
     updateQuestion.mutate({
       ...data,
@@ -43,11 +43,13 @@ export default function QuestionDetailPage() {
     <div className="p-6">
       <Typography variant="h3">Question detail</Typography>
       <Separator className="my-4" />
-      <QuestionForm
-        onSubmit={onSubmit}
-        disabledSubmit={updateQuestion.isPending}
-        {...(selectedQuestion ? { defaultValues: selectedQuestion } : {})}
-      />
+      {isSuccess && (
+        <QuestionForm
+          onSubmit={onSubmit}
+          disabledSubmit={updateQuestion.isPending}
+          {...(selectedQuestion ? { defaultValues: selectedQuestion } : {})}
+        />
+      )}
     </div>
   );
 }

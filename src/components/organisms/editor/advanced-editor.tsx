@@ -25,28 +25,24 @@ import { slashCommand, suggestionItems } from "./slash-command";
 type EditorProps = {
   initialValue?: JSONContent;
   onChange: (value: string) => void;
+  showMenuBar?: boolean;
 };
 
 const extensions = [...defaultExtensions, slashCommand];
 
-export default function TailwindAdvancedEditor({ initialValue, onChange }: EditorProps) {
-  // const [saveStatus, setSaveStatus] = useState<string | null>(null);
-
+export default function TailwindAdvancedEditor({
+  initialValue,
+  onChange,
+  showMenuBar = false,
+}: EditorProps) {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
 
-  // const debouncedUpdates = useDebouncedCallback(async (editor: EditorInstance) => {
-  //   const json = editor.getJSON();
-
-  //   window.localStorage.setItem("novel-content", JSON.stringify(json));
-  //   setSaveStatus("Đã lưu");
-  // }, 500);
-
   return (
     <EditorRoot>
       <EditorContent
-        slotBefore={<MenuBar />}
+        slotBefore={showMenuBar && <MenuBar />}
         className="rounded-xl border p-6"
         {...(initialValue && { initialContent: initialValue })}
         extensions={extensions}

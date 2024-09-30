@@ -73,6 +73,8 @@ export default function QuestionTypeDetail() {
           <div className="w-full flex-1">
             <div className="flex items-baseline justify-between">
               <HoverTextInput
+                variant="h3"
+                showButton
                 onSubmit={(value) => {
                   updateQuestionTypeMutation.mutate({
                     name: value,
