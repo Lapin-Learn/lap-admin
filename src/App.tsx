@@ -27,7 +27,7 @@ export const queryClient = new QueryClient({
       // which indicates a failed background update
       if (query.state.data !== undefined) {
         // toast error message
-        console.log(error);
+        console.error(error);
       }
     },
   }),

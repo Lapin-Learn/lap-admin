@@ -1,53 +1,50 @@
-import { useSearch } from "@tanstack/react-router";
+import { Link, useSearch } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { Pencil } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
+import HoverTextInput from "@/components/mocules/hover-text-input";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Typography } from "@/components/ui/typography";
 import { useCreateBucket, useUpdateBucket } from "@/hooks/react-query/useBuckets";
 import {
   useGetLessonsOfQuestionType,
-  useGetQuestionTypes,
   useUpdateQuestionType,
 } from "@/hooks/react-query/useDailyLessons";
-import { bandScores } from "@/lib/consts";
-import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import { IQuestionType } from "@/lib/interfaces";
 
-import HoverTextInput from "../mocules/hover-text-input";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-import { Typography } from "../ui/typography";
-import ChangeImageDialog from "./change-image-dialog";
-import LessonListTable from "./lesson-list-table";
+import ChangeImageDialog from "../change-image-dialog";
+import GroupedLessonList from "./lesson-list";
+import { useFindQuestionType } from "./use-question-type";
 
 export default function QuestionTypeDetail() {
   const { questionType: questionTypeId, skill } = useSearch({ strict: false });
+  const questionType: IQuestionType | null = useFindQuestionType(questionTypeId, skill);
   const { data: lessons } = useGetLessonsOfQuestionType(questionTypeId);
-  const { data: questionTypes } = useGetQuestionTypes();
   const createBucket = useCreateBucket();
   const updateBucket = useUpdateBucket();
-  const questionType: IQuestionType | null = useMemo(() => {
-    if (questionTypes) {
-      return (
-        questionTypes[skill as keyof typeof EnumSkill].find((qt) => qt.id === questionTypeId) ||
-        null
-      );
-    }
-    return null;
-  }, [questionTypes, questionTypeId, skill]);
+  const [imageUrl, setImageUrl] = useState(questionType?.image?.url || "");
+  useEffect(() => {
+    setImageUrl(questionType?.image?.url || "");
+  }, [questionType]);
   const updateQuestionTypeMutation = useUpdateQuestionType(questionTypeId);
 
   const handleChangeImage = (files: File[]) => {
     const file: File = files[0];
     if (questionType?.image) {
-      updateBucket.mutate({
-        id: questionType.image.id,
-        file,
-      });
+      updateBucket.mutate(
+        {
+          id: questionType.image.id,
+          file,
+        },
+        {
+          onSuccess: () => {
+            setImageUrl(URL.createObjectURL(file));
+          },
+        }
+      );
     } else {
-      console.log("create");
       createBucket.mutate(file, {
         onSuccess: (data) => {
           updateQuestionTypeMutation.mutate({
@@ -63,12 +60,8 @@ export default function QuestionTypeDetail() {
         <div className="flex flex-row items-center gap-4">
           <ChangeImageDialog onSubmit={handleChangeImage}>
             <div className="relative grid size-24 cursor-pointer place-items-center overflow-hidden rounded-full bg-slate-300 [&_div]:opacity-0 [&_div]:hover:opacity-70">
-              {questionType?.image ? (
-                <img
-                  alt="Question type avatar"
-                  src={questionType.image.url}
-                  className="size-full object-cover"
-                />
+              {imageUrl ? (
+                <img alt="Question type avatar" src={imageUrl} className="size-full object-cover" />
               ) : (
                 <Typography variant="caption">No image</Typography>
               )}
@@ -80,6 +73,8 @@ export default function QuestionTypeDetail() {
           <div className="w-full flex-1">
             <div className="flex items-baseline justify-between">
               <HoverTextInput
+                variant="h3"
+                showButton
                 onSubmit={(value) => {
                   updateQuestionTypeMutation.mutate({
                     name: value,
@@ -93,36 +88,15 @@ export default function QuestionTypeDetail() {
               </p>
             </div>
             <div className="mt-4 flex flex-row gap-4">
-              <Button variant="secondary">View instructions</Button>{" "}
+              <Link to={`${questionTypeId}/instructions`}>
+                <Button variant="secondary">View instructions</Button>
+              </Link>
               <Button variant="secondary">Import lessons</Button>
             </div>
           </div>
         </div>
         <Separator className="mt-4" />
-        <Accordion type="multiple">
-          {Object.values(EnumBandScore).map((bandScore) => (
-            <AccordionItem key={bandScore} value={bandScore} className="border-none">
-              <AccordionTrigger className="text-2xl font-semibold">
-                <div className="flex w-full flex-1 flex-row items-center justify-between">
-                  <span>{bandScores[bandScore]}</span>
-                  <Badge variant="secondary">
-                    Total:{" "}
-                    {lessons[bandScore as EnumBandScore]
-                      ? lessons[bandScore as EnumBandScore].length
-                      : 0}
-                  </Badge>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <LessonListTable
-                  data={lessons[bandScore as EnumBandScore] ?? []}
-                  questionTypeId={questionTypeId}
-                  bandScore={bandScore}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <GroupedLessonList lessonList={lessons} questionTypeId={questionTypeId} />
       </div>
     );
   return null;

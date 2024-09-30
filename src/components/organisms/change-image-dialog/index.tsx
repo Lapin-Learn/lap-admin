@@ -61,6 +61,7 @@ export default function ChangeImageDialog({ children, onSubmit }: ChangeImageDia
                 }
               }
               setOpen(false);
+              methods.reset();
             })}
           >
             <Input type="file" {...register("file")} accept="image/*" />

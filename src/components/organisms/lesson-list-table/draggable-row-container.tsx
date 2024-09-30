@@ -32,7 +32,6 @@ export default function DraggableRowContainer({
     });
   }, []);
   useEffect(() => {
-    console.log(new Date());
     onChange(debouncedLessons.map((lesson) => lesson.original));
   }, [debouncedLessons]);
   return (

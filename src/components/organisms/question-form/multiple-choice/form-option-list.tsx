@@ -1,11 +1,11 @@
 import { Check, X } from "lucide-react";
 import { useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form";
 
+import HoverTextInput from "@/components/mocules/hover-text-input";
 import { Button } from "@/components/ui/button";
 import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Typography } from "@/components/ui/typography";
 
 export type FormSelectProps = {
   name: string;
@@ -22,9 +22,10 @@ export default function FormOptionList({
   isEditing = true,
   selected,
 }: FormSelectProps) {
-  const { control } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name });
+  const { control, setValue } = useFormContext();
+  const { fields, append, remove, update } = useFieldArray({ control, name });
   const values = useWatch({ control, name });
+  const answers: number[] = useWatch({ control, name: "content.answer" });
   return (
     <FormField
       control={control}
@@ -35,18 +36,33 @@ export default function FormOptionList({
           {!isEditing && (
             <RadioGroup className="flex flex-col gap-2">
               {fields.map((field, index) => (
-                <div className="flex flex-row items-center gap-4 px-4">
-                  <RadioGroupItem key={field.id} value={field.id} />
-                  <div className="flex w-80 flex-row items-center">
-                    <Typography className="w-full" variant="body2">
+                <div className="flex flex-row items-center gap-4 px-4" key={field.id}>
+                  <RadioGroupItem value={field.id} />
+                  <div className="flex w-1/2 flex-row items-center">
+                    <HoverTextInput
+                      className="w-full"
+                      onSubmit={(value) => update(index, value)}
+                      variant="body2"
+                    >
                       {values?.[index]}
-                    </Typography>
+                    </HoverTextInput>
                     {selected.includes(index) && <Check size={16} className="text-green-500" />}
                     <Button
                       className="size-9 rounded-full p-2 [&_svg]:text-muted-foreground"
                       variant="ghost"
+                      type="button"
                       onClick={() => {
                         remove(index);
+                        if (answers.includes(index)) {
+                          const newAnswers = answers.filter((a: number) => a !== index);
+                          setValue("answers", newAnswers);
+                        } else {
+                          const newAnswers = answers.map((a: number) => {
+                            if (a < index) return a;
+                            return a - 1;
+                          });
+                          setValue("content.answer", newAnswers);
+                        }
                       }}
                     >
                       <X size={16} />

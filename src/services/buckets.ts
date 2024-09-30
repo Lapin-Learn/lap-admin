@@ -1,8 +1,9 @@
+import ky from "ky";
+
 import { IBucket } from "@/lib/interfaces";
 import { FetchingData } from "@/lib/types/pagination";
 
 import api from "./kyInstance";
-import ky from "ky";
 
 export const getFile = async (id: string) => {
   return (await api.get(`files/${id}`).json<FetchingData<IBucket>>()).data;

@@ -22,6 +22,7 @@ import { Route as AuthenticatedDailyLessonsIndexImport } from './routes/_authent
 import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
 import { Route as AuthenticatedQuestionsQuestionIdImport } from './routes/_authenticated/questions/$questionId'
 import { Route as AuthenticatedDailyLessonsLessonIdImport } from './routes/_authenticated/daily-lessons/$lessonId'
+import { Route as AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport } from './routes/_authenticated/daily-lessons/$questionTypeId/instructions'
 
 // Create/Update Routes
 
@@ -83,6 +84,12 @@ const AuthenticatedQuestionsQuestionIdRoute =
 const AuthenticatedDailyLessonsLessonIdRoute =
   AuthenticatedDailyLessonsLessonIdImport.update({
     path: '/daily-lessons/$lessonId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute =
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport.update({
+    path: '/daily-lessons/$questionTypeId/instructions',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
@@ -167,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/daily-lessons/$questionTypeId/instructions': {
+      id: '/_authenticated/daily-lessons/$questionTypeId/instructions'
+      path: '/daily-lessons/$questionTypeId/instructions'
+      fullPath: '/daily-lessons/$questionTypeId/instructions'
+      preLoaderRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
@@ -180,6 +194,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDailyLessonsIndexRoute: typeof AuthenticatedDailyLessonsIndexRoute
   AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -191,6 +206,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDailyLessonsIndexRoute: AuthenticatedDailyLessonsIndexRoute,
   AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute:
+    AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -222,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
 export interface FileRoutesByTo {
@@ -235,6 +253,7 @@ export interface FileRoutesByTo {
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
 export interface FileRoutesById {
@@ -250,6 +269,7 @@ export interface FileRoutesById {
   '/_authenticated/daily-lessons/': typeof AuthenticatedDailyLessonsIndexRoute
   '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
 export interface FileRouteTypes {
@@ -265,6 +285,7 @@ export interface FileRouteTypes {
     | '/daily-lessons'
     | '/questions'
     | '/users'
+    | '/daily-lessons/$questionTypeId/instructions'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -277,6 +298,7 @@ export interface FileRouteTypes {
     | '/daily-lessons'
     | '/questions'
     | '/users'
+    | '/daily-lessons/$questionTypeId/instructions'
   id:
     | '__root__'
     | '/_authenticated'
@@ -290,6 +312,7 @@ export interface FileRouteTypes {
     | '/_authenticated/daily-lessons/'
     | '/_authenticated/questions/'
     | '/_authenticated/users/'
+    | '/_authenticated/daily-lessons/$questionTypeId/instructions'
   fileRoutesById: FileRoutesById
 }
 
@@ -328,7 +351,8 @@ export const routeTree = rootRoute
         "/_authenticated/questions/create",
         "/_authenticated/daily-lessons/",
         "/_authenticated/questions/",
-        "/_authenticated/users/"
+        "/_authenticated/users/",
+        "/_authenticated/daily-lessons/$questionTypeId/instructions"
       ]
     },
     "/_authentication": {
@@ -372,6 +396,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/users/": {
       "filePath": "_authenticated/users/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/daily-lessons/$questionTypeId/instructions": {
+      "filePath": "_authenticated/daily-lessons/$questionTypeId/instructions.tsx",
       "parent": "/_authenticated"
     }
   }

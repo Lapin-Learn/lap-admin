@@ -1,4 +1,5 @@
 import "./styles/globals.css";
+import "./styles/prosemirror.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";

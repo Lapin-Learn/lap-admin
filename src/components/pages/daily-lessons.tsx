@@ -7,14 +7,11 @@ import {
 import { Link, useSearch } from "@tanstack/react-router";
 import { BookOpen, ChartColumnDecreasing, Search } from "lucide-react";
 
+import CreateQuestionTypeDialog from "@/components/organisms/create-question-type-dialog";
+import QuestionTypeDetail from "@/components/organisms/question-type-detail";
+import { Button, Input, Typography } from "@/components/ui";
 import { useGetQuestionTypes } from "@/hooks/react-query/useDailyLessons";
 import { EnumSkill } from "@/lib/enums";
-
-import CreateQuestionTypeDialog from "../organisms/create-question-type-dialog";
-import QuestionTypeDetail from "../organisms/question-type-detail";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Typography } from "../ui/typography";
 
 export default function DailyLessonsPage() {
   const skills = Object.keys(EnumSkill);
@@ -44,7 +41,7 @@ export default function DailyLessonsPage() {
         </div>
         <Accordion type="multiple" className="w-full">
           {skills.map((key) => (
-            <AccordionItem value={key}>
+            <AccordionItem value={key} key={key}>
               <AccordionTrigger className="pb-2 capitalize">{key}</AccordionTrigger>
               <AccordionContent>
                 {questionTypes && questionTypes[key as EnumSkill] ? (
@@ -56,6 +53,7 @@ export default function DailyLessonsPage() {
                           skill: key,
                           questionType: qt.id,
                         }}
+                        key={qt.id}
                       >
                         <div className="ml-4 rounded-sm p-2 hover:bg-muted">{qt.name}</div>
                       </Link>
