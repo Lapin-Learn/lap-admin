@@ -1,19 +1,50 @@
-import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { getCoreRowModel, RowSelectionState, useReactTable } from "@tanstack/react-table";
+import { useEffect, useState } from "react";
 
 import { Question } from "@/lib/types/questions";
 
 import { BaseTable } from "../base-table";
-import { columns } from "./columns";
+import { createColumns } from "./columns";
 
-export type QuestionListTableProps = {
+type GeneralTable = {
   data: Question[];
+  actionColumn?: boolean;
 };
 
-export default function QuestionListTable({ data }: QuestionListTableProps) {
+type UnselectableRowTable = GeneralTable & {
+  selectableRows?: false;
+};
+
+type SelectableRowTable = GeneralTable & {
+  selectableRows?: true;
+  onSelectRow: (rows: Question[]) => void;
+  defaultValues?: number[]
+};
+
+export type QuestionListTableProps = UnselectableRowTable | SelectableRowTable;
+
+export default function QuestionListTable(props: QuestionListTableProps) {
+  const { data, selectableRows = false, actionColumn = false } = props;
+  const tableColumns = createColumns(selectableRows, actionColumn);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>(props.selectableRows ? props.defaultValues?.reduce((acc, value) => {
+    acc[value] = true;
+    return acc;
+  }, {} as Record<number, boolean>) as Record<number, boolean>: {});
   const table = useReactTable({
     data,
-    columns,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
+    onRowSelectionChange: (rows) => setRowSelection(rows),
+    state: {
+      rowSelection,
+    },
   });
-  return <BaseTable table={table} columns={columns} className="mt-6" />;
+  useEffect(() => {
+    console.log(rowSelection);
+    const selectedRows = table.getSelectedRowModel().rows.map((row) => row.original);
+    if (props.selectableRows) {
+      props.onSelectRow(selectedRows);
+    }
+  }, [rowSelection]);
+  return <BaseTable table={table} columns={tableColumns} className="mt-6" />;
 }

@@ -84,3 +84,7 @@ export const updateQuestionType = async (
       .json<FetchingData<IQuestionType>>()
   ).data;
 };
+
+export const assignQuestions = async (lessonId: string, questions: string[]) => {
+  return (await api.put(`admin/lessons/${lessonId}/assignments`, { json: { questions } })).json();
+};

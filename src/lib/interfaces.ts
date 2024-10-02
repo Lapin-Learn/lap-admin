@@ -18,6 +18,7 @@ export interface IUser {
   dob: string | null;
   createdAt: string;
   learnerProfile: ILearnerProfile | null;
+  gender: string | null;
 }
 
 export interface ILearnerProfile {

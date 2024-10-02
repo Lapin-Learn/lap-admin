@@ -21,7 +21,7 @@ export const columns: ColumnDef<IUser>[] = [
       const { email, fullName } = row.original;
       return (
         <div>
-          <Typography variant="subtitle2">{fullName}</Typography>
+          <Typography variant="subtitle2">{fullName ?? "--"}</Typography>
           <Typography variant="caption" className="text-muted-foreground">
             {email}
           </Typography>
@@ -36,14 +36,18 @@ export const columns: ColumnDef<IUser>[] = [
   {
     accessorKey: "role",
     header: "Role",
+    cell: ({ row }) => <p className="capitalize">{row.original.role}</p>,
   },
   {
     accessorKey: "dob",
     header: "Day of birth",
+    cell: ({ row }) => (row.original.dob ? dayjs(row.original.dob).format("DD/MM/YY") : "--"),
   },
   {
     accessorKey: "gender",
     header: "Gender",
+    cell: ({ row }) =>
+      row.original.gender ? <p className="capitalize">{row.original.gender}</p> : "--",
   },
   {
     accessorKey: "createdAt",

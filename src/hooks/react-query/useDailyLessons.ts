@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
+  assignQuestions,
   createLesson,
   createQuestionType,
   getLessonDetail,
@@ -126,6 +127,30 @@ export const useReorderLessons = (questionTypeId: number) => {
       toast({
         title: "Success",
         description: "Reorder lessons successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useAssignQuestionsToLesson = (lessonId: string) => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  return useMutation({
+    mutationFn: (questionIds: string[]) => assignQuestions(lessonId, questionIds),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: LessonKeys.detail(lessonId),
+      });
+      toast({
+        title: "Success",
+        description: "Assign questions successfully",
       });
     },
     onError: (error) => {
