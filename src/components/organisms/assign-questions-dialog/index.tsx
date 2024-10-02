@@ -20,12 +20,13 @@ type AssignQuestionsDialog = {
   questionIds: string[];
 };
 export default function AssignQuestionsDialog({ questionIds }: AssignQuestionsDialog) {
+  const [open, setOpen] = useState(false);
   const { data } = useGetQuestions();
   const { lessonId } = Route.useParams();
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
   const assignQuestionsMutation = useAssignQuestionsToLesson(lessonId);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button variant="secondary" size="sm">
           <Pencil size="16" className="mr-2" /> Edit
@@ -55,8 +56,13 @@ export default function AssignQuestionsDialog({ questionIds }: AssignQuestionsDi
           <Button
             size="sm"
             onClick={() => {
-              assignQuestionsMutation.mutate(selectedQuestions);
+              assignQuestionsMutation.mutate(selectedQuestions, {
+                onSuccess: () => {
+                  setOpen(false);
+                },
+              });
             }}
+            disabled={assignQuestionsMutation.isPending}
           >
             Save
           </Button>

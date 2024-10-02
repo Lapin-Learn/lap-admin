@@ -1,4 +1,4 @@
-import { Pencil, Plus } from "lucide-react";
+import parse from "html-react-parser";
 import { useRef } from "react";
 
 import { useGetLessonDetail } from "@/hooks/react-query/useDailyLessons";
@@ -103,7 +103,7 @@ export default function LessonDetailPage() {
                 <strong className="inline-flex items-center gap-2 font-semibold italic">
                   Explanation
                 </strong>
-                <em className="mt-2 block">{question.explanation}</em>
+                <div className="mt-2 list-inside">{parse(question.explanation || "")}</div>
               </div>
             ))}
           </div>

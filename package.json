@@ -40,6 +40,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dnd-core": "^16.0.1",
+    "html-react-parser": "^5.1.16",
     "ky": "^1.7.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.441.0",
