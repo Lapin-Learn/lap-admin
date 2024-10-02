@@ -19,7 +19,7 @@ export default function QuestionListPage() {
         </Typography>
         <Button onClick={() => navigate({ to: "create" })}>Create</Button>
       </div>
-      {data && <QuestionListTable data={data.questions} />}
+      {data && <QuestionListTable data={data.questions} actionColumn />}
     </div>
   );
 }

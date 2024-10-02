@@ -1,15 +1,16 @@
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { useRef } from "react";
 
 import { useGetLessonDetail } from "@/hooks/react-query/useDailyLessons";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/daily-lessons/$lessonId";
 
+import AssignQuestionsDialog from "../organisms/assign-questions-dialog";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
-import { RadioGroup,RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Separator } from "../ui/separator";
 
 export default function LessonDetailPage() {
@@ -107,7 +108,12 @@ export default function LessonDetailPage() {
             ))}
           </div>
           <div className="sticky top-12 h-fit">
-            <h6 className="text-xl font-semibold">Question lists</h6>
+            <div className="flex flex-row items-center justify-between">
+              <h6 className="text-xl font-semibold">Question lists</h6>
+              <AssignQuestionsDialog
+                questionIds={data.questionToLessons.map((item) => item.questionId)}
+              />
+            </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {data.questionToLessons.map(({ questionId, order }) => (
                 <Button
@@ -118,9 +124,9 @@ export default function LessonDetailPage() {
                   {order}
                 </Button>
               ))}
-              <Button variant="secondary" className="w-9 p-2">
+              {/* <Button variant="secondary" className="w-9 p-2">
                 <Plus />
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 
+import { Checkbox } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,6 +13,54 @@ import {
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
 import { EnumQuestion, Question } from "@/lib/types/questions";
 
+const selectColumn: ColumnDef<Question>[] = [
+  {
+    id: "select",
+    // header: ({ table }) => (
+    //   <Checkbox
+    //     checked={
+    //       table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+    //     }
+    //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //     aria-label="Select all"
+    //   />
+    // ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    size: 40,
+  },
+];
+
+const actionColumn: ColumnDef<Question>[] = [
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      return (
+        <div className="inline-flex w-full flex-row justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="size-8 p-0 data-[state=open]:opacity-100">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <Link to={`${row.original.id}`}>
+                <DropdownMenuItem>View question detail</DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      );
+    },
+  },
+];
 export const columns: ColumnDef<Question>[] = [
   {
     accessorKey: "contentType",
@@ -42,27 +91,13 @@ export const columns: ColumnDef<Question>[] = [
     accessorKey: "cefrLevel",
     header: "CEFR Level",
   },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      return (
-        <div className="inline-flex w-full flex-row justify-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="size-8 p-0 data-[state=open]:opacity-100">
-                <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <Link to={`${row.original.id}`}>
-                <DropdownMenuItem>View question detail</DropdownMenuItem>
-              </Link>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      );
-    },
-  },
 ];
+
+export const createColumns = (selectable: boolean = false, action: boolean = false) => {
+  const combineColumns: ColumnDef<Question>[] = [
+    ...(selectable ? selectColumn : []),
+    ...columns,
+    ...(action ? actionColumn : []),
+  ];
+  return combineColumns;
+};
