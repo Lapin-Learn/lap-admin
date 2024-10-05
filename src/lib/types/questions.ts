@@ -21,12 +21,14 @@ type BaseQuestion = {
   updatedAt: string;
 };
 
+export type MultipleChoiceContent = {
+  options: string[];
+  answer: number[];
+};
+
 type MultipleChoiceQuestion = BaseQuestion & {
   contentType: EnumQuestion.MultipleChoice;
-  content: ReadingQuestion & {
-    options: string[];
-    answer: number[] | number;
-  };
+  content: ReadingQuestion & MultipleChoiceContent;
 };
 
 type FillInTheBlankQuestion = BaseQuestion & {
@@ -36,10 +38,7 @@ type FillInTheBlankQuestion = BaseQuestion & {
 
 type MatchingQuestion = BaseQuestion & {
   contentType: EnumQuestion.Matching;
-  content: ReadingQuestion & {
-    options: string[];
-    answer: number[];
-  };
+  content: ReadingQuestion;
 };
 
-export type Question = MultipleChoiceQuestion | FillInTheBlankQuestion | MatchingQuestion;
+export type IQuestion = MultipleChoiceQuestion | FillInTheBlankQuestion | MatchingQuestion;

@@ -38,7 +38,7 @@ export default function LessonDetailPage() {
                 ref={(el) => (questionRefs.current[questionId] = el)}
               >
                 <div className="inline-flex items-center font-semibold">
-                  Question {order}
+                  IQuestion {order}
                   <Badge variant="secondary" className="ml-2">
                     {question.cefrLevel}
                   </Badge>

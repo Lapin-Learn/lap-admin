@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import LearnLessonPage from "@/components/pages/learner/learn-lesson";
+
 export const Route = createFileRoute("/learner/lessons/$lessonId")({
-  component: () => <div>Hello /learner/lessons/$lessonId!</div>,
+  component: LearnLessonPage,
 });

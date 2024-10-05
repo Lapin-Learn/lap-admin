@@ -109,6 +109,7 @@ export const useGetLessonDetail = (lessonId: string) => {
   return useQuery({
     queryKey: LessonKeys.detail(lessonId),
     queryFn: () => getLessonDetail(lessonId),
+    staleTime: Infinity,
   });
 };
 

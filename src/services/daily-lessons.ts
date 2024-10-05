@@ -1,13 +1,13 @@
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import { ILesson, IQuestionType } from "@/lib/interfaces";
 import { FetchingData } from "@/lib/types/pagination";
-import { Question } from "@/lib/types/questions";
+import { IQuestion } from "@/lib/types/questions";
 
 import api from "./kyInstance";
 
 export type LessonDetail = Omit<ILesson, "bandScore"> & {
   questionToLessons: {
-    question: Question;
+    question: IQuestion;
     order: number;
     questionId: string;
   }[];

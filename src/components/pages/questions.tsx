@@ -15,7 +15,7 @@ export default function QuestionListPage() {
       <div className="flex flex-row justify-between">
         <Typography variant="h3" className="inline-flex items-center">
           <FileQuestion size={24} className="mr-2 inline-block" />
-          Question List
+          IQuestion List
         </Typography>
         <Button onClick={() => navigate({ to: "create" })}>Create</Button>
       </div>

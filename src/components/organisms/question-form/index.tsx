@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
 import { EnumCEFRLevel } from "@/lib/enums";
-import { EnumQuestion, Question } from "@/lib/types/questions";
+import { EnumQuestion, IQuestion } from "@/lib/types/questions";
 
 import TailwindAdvancedEditor from "../editor/advanced-editor";
 import { defaultExtensions } from "../editor/extensions";
@@ -27,7 +27,7 @@ import { BaseCreateQuestion, baseCreateQuestionSchema } from "./validation";
 
 type QuestionFormProps = {
   onSubmit: (data: BaseCreateQuestion) => void;
-  defaultValues?: BaseCreateQuestion | Question;
+  defaultValues?: BaseCreateQuestion | IQuestion;
   disabledSubmit?: boolean;
 };
 

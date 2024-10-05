@@ -11,9 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
-import { EnumQuestion, Question } from "@/lib/types/questions";
+import { EnumQuestion, IQuestion } from "@/lib/types/questions";
 
-const selectColumn: ColumnDef<Question>[] = [
+const selectColumn: ColumnDef<IQuestion>[] = [
   {
     id: "select",
     // header: ({ table }) => (
@@ -36,7 +36,7 @@ const selectColumn: ColumnDef<Question>[] = [
   },
 ];
 
-const actionColumn: ColumnDef<Question>[] = [
+const actionColumn: ColumnDef<IQuestion>[] = [
   {
     id: "actions",
     enableHiding: false,
@@ -61,7 +61,7 @@ const actionColumn: ColumnDef<Question>[] = [
     },
   },
 ];
-export const columns: ColumnDef<Question>[] = [
+export const columns: ColumnDef<IQuestion>[] = [
   {
     accessorKey: "contentType",
     header: "Content type",
@@ -94,7 +94,7 @@ export const columns: ColumnDef<Question>[] = [
 ];
 
 export const createColumns = (selectable: boolean = false, action: boolean = false) => {
-  const combineColumns: ColumnDef<Question>[] = [
+  const combineColumns: ColumnDef<IQuestion>[] = [
     ...(selectable ? selectColumn : []),
     ...columns,
     ...(action ? actionColumn : []),
