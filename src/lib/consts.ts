@@ -1,4 +1,4 @@
-import { EnumBandScore } from "./enums";
+import { EnumBandScore, EnumRole } from "./enums";
 import { EnumQuestion } from "./types/questions";
 
 export const bandScores = {
@@ -16,3 +16,7 @@ export const CONTENT_TYPE_OPTIONS = [
   { value: EnumQuestion.FillInTheBlank, label: "Fill in the blanks" },
   { value: EnumQuestion.Matching, label: "Matching" },
 ];
+
+export const AUTHORIZATION: Record<PropertyKey, EnumRole> = {
+  "daily-lessons": EnumRole.admin,
+};

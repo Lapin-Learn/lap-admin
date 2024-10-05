@@ -1,3 +1,4 @@
+import { EnumRole } from "@/lib/enums";
 import { FetchingData } from "@/lib/types/pagination";
 import api, { apiAuth } from "@/services/kyInstance";
 
@@ -17,6 +18,7 @@ export type AuthUser = {
   id: string;
   username: string;
   email: string;
+  role: EnumRole;
 };
 
 export const getAuthValueFromStorage = () => {

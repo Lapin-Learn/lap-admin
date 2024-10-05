@@ -2,6 +2,9 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { PagedData, PagingSchema } from "@/lib/types/pagination";
+import { find, includes } from "lodash";
+import { EnumRole } from "./enums";
+import { AUTHORIZATION } from "./consts";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -42,4 +45,10 @@ export const fromPageToOffset = (value: PagingSchema) => {
     offset: (value.page - 1) * value.pageSize,
     limit: value.pageSize,
   };
+};
+
+export const isAuthorized = (role: EnumRole, pathname: string) => {
+  const authRole = AUTHORIZATION[pathname];
+  const isAvailable = role == authRole;
+  return isAvailable;
 };

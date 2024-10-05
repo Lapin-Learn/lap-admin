@@ -55,3 +55,8 @@ export interface ILesson {
   order: number;
   bandScore: EnumBandScore;
 }
+
+export interface IQuestionTypeProgress {
+  bandScore: EnumBandScore;
+  totalLearningXP: number;
+}

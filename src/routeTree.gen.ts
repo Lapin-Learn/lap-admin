@@ -13,12 +13,16 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticationImport } from './routes/_authentication'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as LearnerIndexImport } from './routes/learner/index'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
 import { Route as AuthenticationForgetPasswordImport } from './routes/_authentication/forget-password'
+import { Route as LearnerQuestionTypesIndexImport } from './routes/learner/question-types/index'
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedQuestionsIndexImport } from './routes/_authenticated/questions/index'
 import { Route as AuthenticatedDailyLessonsIndexImport } from './routes/_authenticated/daily-lessons/index'
+import { Route as LearnerQuestionTypesQuestionTypeIdImport } from './routes/learner/question-types/$questionTypeId'
+import { Route as LearnerLessonsLessonIdImport } from './routes/learner/lessons/$lessonId'
 import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
 import { Route as AuthenticatedQuestionsQuestionIdImport } from './routes/_authenticated/questions/$questionId'
 import { Route as AuthenticatedDailyLessonsLessonIdImport } from './routes/_authenticated/daily-lessons/$lessonId'
@@ -33,6 +37,11 @@ const AuthenticationRoute = AuthenticationImport.update({
 
 const AuthenticatedRoute = AuthenticatedImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LearnerIndexRoute = LearnerIndexImport.update({
+  path: '/learner/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -52,6 +61,11 @@ const AuthenticationForgetPasswordRoute =
     getParentRoute: () => AuthenticationRoute,
   } as any)
 
+const LearnerQuestionTypesIndexRoute = LearnerQuestionTypesIndexImport.update({
+  path: '/learner/question-types/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexImport.update({
   path: '/users/',
   getParentRoute: () => AuthenticatedRoute,
@@ -68,6 +82,17 @@ const AuthenticatedDailyLessonsIndexRoute =
     path: '/daily-lessons/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+
+const LearnerQuestionTypesQuestionTypeIdRoute =
+  LearnerQuestionTypesQuestionTypeIdImport.update({
+    path: '/learner/question-types/$questionTypeId',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const LearnerLessonsLessonIdRoute = LearnerLessonsLessonIdImport.update({
+  path: '/learner/lessons/$lessonId',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AuthenticatedQuestionsCreateRoute =
   AuthenticatedQuestionsCreateImport.update({
@@ -132,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/learner/': {
+      id: '/learner/'
+      path: '/learner'
+      fullPath: '/learner'
+      preLoaderRoute: typeof LearnerIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated/daily-lessons/$lessonId': {
       id: '/_authenticated/daily-lessons/$lessonId'
       path: '/daily-lessons/$lessonId'
@@ -153,6 +185,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQuestionsCreateImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/learner/lessons/$lessonId': {
+      id: '/learner/lessons/$lessonId'
+      path: '/learner/lessons/$lessonId'
+      fullPath: '/learner/lessons/$lessonId'
+      preLoaderRoute: typeof LearnerLessonsLessonIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/learner/question-types/$questionTypeId': {
+      id: '/learner/question-types/$questionTypeId'
+      path: '/learner/question-types/$questionTypeId'
+      fullPath: '/learner/question-types/$questionTypeId'
+      preLoaderRoute: typeof LearnerQuestionTypesQuestionTypeIdImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated/daily-lessons/': {
       id: '/_authenticated/daily-lessons/'
       path: '/daily-lessons'
@@ -173,6 +219,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/users'
       preLoaderRoute: typeof AuthenticatedUsersIndexImport
       parentRoute: typeof AuthenticatedImport
+    }
+    '/learner/question-types/': {
+      id: '/learner/question-types/'
+      path: '/learner/question-types'
+      fullPath: '/learner/question-types'
+      preLoaderRoute: typeof LearnerQuestionTypesIndexImport
+      parentRoute: typeof rootRoute
     }
     '/_authenticated/daily-lessons/$questionTypeId/instructions': {
       id: '/_authenticated/daily-lessons/$questionTypeId/instructions'
@@ -233,12 +286,16 @@ export interface FileRoutesByFullPath {
   '/forget-password': typeof AuthenticationForgetPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/': typeof AuthenticatedIndexRoute
+  '/learner': typeof LearnerIndexRoute
   '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
   '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
   '/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/learner/lessons/$lessonId': typeof LearnerLessonsLessonIdRoute
+  '/learner/question-types/$questionTypeId': typeof LearnerQuestionTypesQuestionTypeIdRoute
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/learner/question-types': typeof LearnerQuestionTypesIndexRoute
   '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
@@ -247,12 +304,16 @@ export interface FileRoutesByTo {
   '/forget-password': typeof AuthenticationForgetPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/': typeof AuthenticatedIndexRoute
+  '/learner': typeof LearnerIndexRoute
   '/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
   '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
   '/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/learner/lessons/$lessonId': typeof LearnerLessonsLessonIdRoute
+  '/learner/question-types/$questionTypeId': typeof LearnerQuestionTypesQuestionTypeIdRoute
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/learner/question-types': typeof LearnerQuestionTypesIndexRoute
   '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
@@ -263,12 +324,16 @@ export interface FileRoutesById {
   '/_authentication/forget-password': typeof AuthenticationForgetPasswordRoute
   '/_authentication/log-in': typeof AuthenticationLogInRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/learner/': typeof LearnerIndexRoute
   '/_authenticated/daily-lessons/$lessonId': typeof AuthenticatedDailyLessonsLessonIdRoute
   '/_authenticated/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdRoute
   '/_authenticated/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/learner/lessons/$lessonId': typeof LearnerLessonsLessonIdRoute
+  '/learner/question-types/$questionTypeId': typeof LearnerQuestionTypesQuestionTypeIdRoute
   '/_authenticated/daily-lessons/': typeof AuthenticatedDailyLessonsIndexRoute
   '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/learner/question-types/': typeof LearnerQuestionTypesIndexRoute
   '/_authenticated/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
 }
 
@@ -279,12 +344,16 @@ export interface FileRouteTypes {
     | '/forget-password'
     | '/log-in'
     | '/'
+    | '/learner'
     | '/daily-lessons/$lessonId'
     | '/questions/$questionId'
     | '/questions/create'
+    | '/learner/lessons/$lessonId'
+    | '/learner/question-types/$questionTypeId'
     | '/daily-lessons'
     | '/questions'
     | '/users'
+    | '/learner/question-types'
     | '/daily-lessons/$questionTypeId/instructions'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -292,12 +361,16 @@ export interface FileRouteTypes {
     | '/forget-password'
     | '/log-in'
     | '/'
+    | '/learner'
     | '/daily-lessons/$lessonId'
     | '/questions/$questionId'
     | '/questions/create'
+    | '/learner/lessons/$lessonId'
+    | '/learner/question-types/$questionTypeId'
     | '/daily-lessons'
     | '/questions'
     | '/users'
+    | '/learner/question-types'
     | '/daily-lessons/$questionTypeId/instructions'
   id:
     | '__root__'
@@ -306,12 +379,16 @@ export interface FileRouteTypes {
     | '/_authentication/forget-password'
     | '/_authentication/log-in'
     | '/_authenticated/'
+    | '/learner/'
     | '/_authenticated/daily-lessons/$lessonId'
     | '/_authenticated/questions/$questionId'
     | '/_authenticated/questions/create'
+    | '/learner/lessons/$lessonId'
+    | '/learner/question-types/$questionTypeId'
     | '/_authenticated/daily-lessons/'
     | '/_authenticated/questions/'
     | '/_authenticated/users/'
+    | '/learner/question-types/'
     | '/_authenticated/daily-lessons/$questionTypeId/instructions'
   fileRoutesById: FileRoutesById
 }
@@ -319,11 +396,20 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthenticationRoute: typeof AuthenticationRouteWithChildren
+  LearnerIndexRoute: typeof LearnerIndexRoute
+  LearnerLessonsLessonIdRoute: typeof LearnerLessonsLessonIdRoute
+  LearnerQuestionTypesQuestionTypeIdRoute: typeof LearnerQuestionTypesQuestionTypeIdRoute
+  LearnerQuestionTypesIndexRoute: typeof LearnerQuestionTypesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
+  LearnerIndexRoute: LearnerIndexRoute,
+  LearnerLessonsLessonIdRoute: LearnerLessonsLessonIdRoute,
+  LearnerQuestionTypesQuestionTypeIdRoute:
+    LearnerQuestionTypesQuestionTypeIdRoute,
+  LearnerQuestionTypesIndexRoute: LearnerQuestionTypesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -339,7 +425,11 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_authenticated",
-        "/_authentication"
+        "/_authentication",
+        "/learner/",
+        "/learner/lessons/$lessonId",
+        "/learner/question-types/$questionTypeId",
+        "/learner/question-types/"
       ]
     },
     "/_authenticated": {
@@ -374,6 +464,9 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
     },
+    "/learner/": {
+      "filePath": "learner/index.tsx"
+    },
     "/_authenticated/daily-lessons/$lessonId": {
       "filePath": "_authenticated/daily-lessons/$lessonId.tsx",
       "parent": "/_authenticated"
@@ -386,6 +479,12 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/questions/create.tsx",
       "parent": "/_authenticated"
     },
+    "/learner/lessons/$lessonId": {
+      "filePath": "learner/lessons/$lessonId.tsx"
+    },
+    "/learner/question-types/$questionTypeId": {
+      "filePath": "learner/question-types/$questionTypeId.tsx"
+    },
     "/_authenticated/daily-lessons/": {
       "filePath": "_authenticated/daily-lessons/index.tsx",
       "parent": "/_authenticated"
@@ -397,6 +496,9 @@ export const routeTree = rootRoute
     "/_authenticated/users/": {
       "filePath": "_authenticated/users/index.tsx",
       "parent": "/_authenticated"
+    },
+    "/learner/question-types/": {
+      "filePath": "learner/question-types/index.tsx"
     },
     "/_authenticated/daily-lessons/$questionTypeId/instructions": {
       "filePath": "_authenticated/daily-lessons/$questionTypeId/instructions.tsx",

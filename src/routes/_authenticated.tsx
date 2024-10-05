@@ -4,6 +4,7 @@ import ErrorFallback from "@/components/ErrorFallback";
 import DashboardLayout from "@/components/layouts/dashboard";
 import { authKeys } from "@/hooks/react-query/useAuth";
 import { getAuthUser, getAuthValueFromStorage, signOut } from "@/services";
+import { EnumRole } from "@/lib/enums";
 
 const AuthenticatedPage = () => {
   return (
@@ -28,6 +29,8 @@ export const Route = createFileRoute("/_authenticated")({
         signOut();
         return redirect({ to: "/log-in" });
       }
+      if (user.role === EnumRole.learner && location.href !== "/learner")
+        return redirect({ to: "/learner" });
       if (location.href == "/") return redirect({ to: "/daily-lessons" });
       return true;
     } catch (e) {
