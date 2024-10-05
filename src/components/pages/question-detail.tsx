@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { useGetQuestions, useUpdateQuestion } from "@/hooks/react-query/useQuestions";
-import { EnumQuestion } from "@/lib/types/questions";
+import { EnumContentType } from "@/lib/types/questions";
 import { Route } from "@/routes/_authenticated/questions/$questionId";
 
 import QuestionForm from "../organisms/question-form";
@@ -18,7 +18,7 @@ export default function QuestionDetailPage() {
       ...data,
       content: {
         ...data.content,
-        answer: data.content.answer.length == 1 ? data.content.answer[0] : data.content.answer,
+        answer: data.content.answer,
       },
     });
   };
@@ -26,7 +26,7 @@ export default function QuestionDetailPage() {
     const res = questionList?.questions.find((question) => question.id === questionId);
     if (
       res &&
-      res.contentType == EnumQuestion.MultipleChoice &&
+      res.contentType == EnumContentType.MultipleChoice &&
       !Array.isArray(res.content.answer)
     ) {
       return {

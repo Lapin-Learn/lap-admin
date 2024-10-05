@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
-import { EnumQuestion, IQuestion } from "@/lib/types/questions";
+import { EnumContentType, IQuestion } from "@/lib/types/questions";
 
 const selectColumn: ColumnDef<IQuestion>[] = [
   {
@@ -76,7 +76,7 @@ export const columns: ColumnDef<IQuestion>[] = [
     accessorKey: "content.question.paragraph",
     header: "Preview questions",
     cell: ({ row }) => {
-      if (row.original.contentType === EnumQuestion.MultipleChoice) {
+      if (row.original.contentType === EnumContentType.MultipleChoice) {
         return (
           <div className="flex flex-col py-2">
             <span className="line-clamp-3 text-sm">{row.original.content.paragraph}</span>

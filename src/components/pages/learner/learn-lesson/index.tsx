@@ -3,14 +3,13 @@ import { MoveLeft } from "lucide-react";
 import { useEffect } from "react";
 
 import { Button, Typography } from "@/components/ui";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
-import { EnumQuestion } from "@/lib/types/questions";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/learner/lessons/$lessonId";
 
-import MultipleChoice from "./components/content/multiple-choice";
+import AnswerInput from "./components/answer-input";
 import useLesson from "./useLesson";
+import QuestionCard from "./components/question-card";
 
 const LearnLessonPage = () => {
   const { lessonId } = Route.useParams();
@@ -20,7 +19,7 @@ const LearnLessonPage = () => {
     currentQuestionIndex,
     nextQuestion,
     currentQuestion,
-    answers,
+    learnerAnswers,
     clear,
     answerQuestion,
   } = useLesson(lessonId);
@@ -29,8 +28,8 @@ const LearnLessonPage = () => {
     return clear;
   }, []);
   return (
-    <main className="mx-4 grid grid-cols-8 pt-4">
-      <div className="col-span-full col-start-2 md:col-span-2 md:col-start-4">
+    <main className="mx-4 grid grid-cols-8 pt-4 md:mx-0">
+      <div className="col-span-full col-start-1 md:col-span-2 md:col-start-4">
         <div className="flex flex-row items-center gap-4">
           <Button variant="ghost" onClick={() => router.history.back()}>
             <MoveLeft />
@@ -43,35 +42,30 @@ const LearnLessonPage = () => {
                   ? `${((currentQuestionIndex + 1) / totalQuestion) * 100}%`
                   : "0",
               }}
-            ></span>
+            />
           </div>
         </div>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div>
-            <div>
-              {currentQuestion && (
-                <div>
-                  <ScrollArea className="h-80 rounded-md border p-4">
-                    <p>{currentQuestion.content.paragraph}</p>
-                  </ScrollArea>
-                  <h2 className="my-2 font-semibold">{currentQuestion.content.question}</h2>
-                </div>
-              )}
-              {currentQuestion?.contentType == EnumQuestion.MultipleChoice ? (
-                <div className="my-2">
-                  <MultipleChoice {...currentQuestion?.content} onAnswer={answerQuestion} />
-                </div>
-              ) : (
-                <div></div>
-              )}
+          <>
+            <div className="flex flex-col gap-2">
+              {currentQuestion ? (
+                <>
+                  <QuestionCard {...currentQuestion.content} />
+                  <AnswerInput
+                    onAnswer={answerQuestion}
+                    result={learnerAnswers[currentQuestionIndex]}
+                    {...currentQuestion}
+                  />
+                </>
+              ) : null}
             </div>
-            <Sheet open={typeof answers[currentQuestionIndex] === "boolean"}>
+            <Sheet open={typeof learnerAnswers[currentQuestionIndex] === "boolean"}>
               <SheetContent
                 className={cn(
                   "h-40 w-full px-4",
-                  answers[currentQuestionIndex] === true
+                  learnerAnswers[currentQuestionIndex] === true
                     ? "bg-green-100"
                     : "bg-destructive-foreground"
                 )}
@@ -83,14 +77,16 @@ const LearnLessonPage = () => {
                     variant="h4"
                     className={cn(
                       "mb-4 font-bold",
-                      answers[currentQuestionIndex] === true ? "text-green-700" : "text-destructive"
+                      learnerAnswers[currentQuestionIndex] === true
+                        ? "text-green-700"
+                        : "text-destructive"
                     )}
                   >
-                    {answers[currentQuestionIndex] === true ? "Chính xác" : "Chưa chính xác"}
+                    {learnerAnswers[currentQuestionIndex] === true ? "Chính xác" : "Chưa chính xác"}
                   </Typography>
                   <Button
                     className={
-                      answers[currentQuestionIndex] === true
+                      learnerAnswers[currentQuestionIndex] === true
                         ? "bg-green-500 hover:bg-green-600"
                         : "bg-destructive hover:bg-red-700"
                     }
@@ -101,7 +97,7 @@ const LearnLessonPage = () => {
                 </div>
               </SheetContent>
             </Sheet>
-          </div>
+          </>
         )}
       </div>
     </main>

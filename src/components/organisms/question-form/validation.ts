@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 import { EnumCEFRLevel } from "@/lib/enums";
-import { EnumQuestion } from "@/lib/types/questions";
+import { EnumContentType } from "@/lib/types/questions";
 
 const questionSchema = z.object({
   options: z.array(z.string()).min(2, "At least 2 options are required"),
   answer: z.array(z.number()).min(1, "At least 1 answer is required"),
 });
 export const baseCreateQuestionSchema = z.object({
-  contentType: z.nativeEnum(EnumQuestion),
+  contentType: z.nativeEnum(EnumContentType),
   content: z
     .object({
       paragraph: z.string().trim().min(1, "Paragraph is required"),

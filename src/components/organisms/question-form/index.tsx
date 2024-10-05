@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { CONTENT_TYPE_OPTIONS } from "@/lib/consts";
 import { EnumCEFRLevel } from "@/lib/enums";
-import { EnumQuestion, IQuestion } from "@/lib/types/questions";
+import { EnumContentType, IQuestion } from "@/lib/types/questions";
 
 import TailwindAdvancedEditor from "../editor/advanced-editor";
 import { defaultExtensions } from "../editor/extensions";
@@ -38,7 +38,7 @@ export default function QuestionForm({
 }: QuestionFormProps) {
   const form = useForm<BaseCreateQuestion>({
     defaultValues: (defaultValues as BaseCreateQuestion) || {
-      contentType: EnumQuestion.MultipleChoice,
+      contentType: EnumContentType.MultipleChoice,
       content: {
         paragraph: "",
         question: "",
@@ -122,7 +122,7 @@ export default function QuestionForm({
 
 function createContentQuestion(form: UseFormReturn<BaseCreateQuestion>) {
   switch (form.watch("contentType")) {
-    case EnumQuestion.MultipleChoice:
+    case EnumContentType.MultipleChoice:
       return <MultipleChoice form={form} />;
     default:
       return null;

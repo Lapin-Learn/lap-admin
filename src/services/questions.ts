@@ -11,7 +11,7 @@ export const getQuestions = async () => {
   ).data;
 };
 
-type CreateQuestionParams = Omit<IQuestion, "createdAt" | "updatedAt" | "id">;
+type CreateQuestionParams = Omit<IQuestion, "createdAt" | "updatedAt" | "id" | "audio" | "image">;
 export const createQuestion = async (params: CreateQuestionParams) => {
   return (await api.post("admin/questions", { json: params }).json<FetchingData<IQuestion>>()).data;
 };

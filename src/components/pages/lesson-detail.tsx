@@ -38,7 +38,7 @@ export default function LessonDetailPage() {
                 ref={(el) => (questionRefs.current[questionId] = el)}
               >
                 <div className="inline-flex items-center font-semibold">
-                  IQuestion {order}
+                  Question {order}
                   <Badge variant="secondary" className="ml-2">
                     {question.cefrLevel}
                   </Badge>
@@ -47,13 +47,16 @@ export default function LessonDetailPage() {
                   <div className="mt-2">
                     <p>{question.content.paragraph}</p>
                     <strong>{question.content.question}</strong>
-                    {typeof question.content.answer === "number" ? (
-                      <RadioGroup className="mt-2 pl-6" value={question.content.answer.toString()}>
+                    {question.content.answer.length === 1 ? (
+                      <RadioGroup
+                        className="mt-2 pl-6"
+                        value={question.content.answer[0].toString()}
+                      >
                         {question.content.options.map((option, index) => (
                           <div
                             className={cn(
                               "inline-flex items-center space-x-2",
-                              index == question.content.answer
+                              index == question.content.answer[0]
                                 ? "text-green-600 [&_label]:font-semibold [&_svg]:fill-green-600 [&_svg]:text-green-600"
                                 : ""
                             )}

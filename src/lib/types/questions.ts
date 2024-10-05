@@ -1,22 +1,24 @@
 import { EnumCEFRLevel } from "../enums";
+import { IBucket } from "../interfaces";
 
-export enum EnumQuestion {
+export enum EnumContentType {
   MultipleChoice = "multiple_choice",
-  FillInTheBlank = "fill_in_the_blank",
   Matching = "matching",
 }
 
-type ReadingQuestion = {
+export type ReadingQuestion = {
   paragraph: string;
   question: string;
 };
 
-type BaseQuestion = {
+export type BaseQuestion = {
   id: string;
   explanation: string | null;
   cefrLevel: EnumCEFRLevel;
   imageId: string | null;
+  image: IBucket | null;
   audioId: string | null;
+  audio: IBucket | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -27,18 +29,27 @@ export type MultipleChoiceContent = {
 };
 
 type MultipleChoiceQuestion = BaseQuestion & {
-  contentType: EnumQuestion.MultipleChoice;
+  contentType: EnumContentType.MultipleChoice;
   content: ReadingQuestion & MultipleChoiceContent;
 };
 
-type FillInTheBlankQuestion = BaseQuestion & {
-  contentType: EnumQuestion.FillInTheBlank;
-  content: ReadingQuestion;
+export type Column = "columnA" | "columnB";
+export type PairAnswer = Record<Column, string[]>;
+export type MatchingContent = {
+  columnA: {
+    title: string;
+    options: string[];
+  };
+  columnB: {
+    title: string;
+    options: string[];
+  };
+  answer: PairAnswer[];
 };
 
 type MatchingQuestion = BaseQuestion & {
-  contentType: EnumQuestion.Matching;
-  content: ReadingQuestion;
+  contentType: EnumContentType.Matching;
+  content: ReadingQuestion & MatchingContent;
 };
 
-export type IQuestion = MultipleChoiceQuestion | FillInTheBlankQuestion | MatchingQuestion;
+export type IQuestion = MultipleChoiceQuestion | MatchingQuestion;

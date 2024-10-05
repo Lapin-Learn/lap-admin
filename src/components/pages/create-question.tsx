@@ -12,7 +12,7 @@ export default function CreateQuestionPage() {
       ...data,
       content: {
         ...data.content,
-        answer: data.content.answer.length == 1 ? data.content.answer[0] : data.content.answer,
+        answer: data.content.answer,
       },
     });
   };

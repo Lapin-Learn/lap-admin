@@ -4,14 +4,14 @@ import { create } from "zustand";
 import { useGetLessonDetail } from "@/hooks/react-query/useDailyLessons";
 import { IQuestion } from "@/lib/types/questions";
 
-type Answer = boolean | "notAnswered";
+export type Answer = boolean | "notAnswered";
 
 type State = {
   questions: IQuestion[];
   totalQuestion: number;
   currentQuestionIndex: number;
   currentQuestion: IQuestion | null;
-  answers: Answer[];
+  learnerAnswers: Answer[];
   isCompleted: boolean;
   learnerAnswer: number[] | null;
 };
@@ -28,7 +28,7 @@ const initialValue: State = {
   totalQuestion: 0,
   currentQuestionIndex: 0,
   currentQuestion: null,
-  answers: [],
+  learnerAnswers: [],
   isCompleted: false,
   learnerAnswer: null,
 };
@@ -39,13 +39,13 @@ const useLessonStore = create<State & Action>((set, get) => ({
       questions,
       totalQuestion: questions.length,
       currentQuestion: questions.length ? questions[0] : null,
-      answers: Array(questions.length).fill("notAnswered"),
+      learnerAnswers: Array(questions.length).fill("notAnswered"),
     });
   },
   answerQuestion: (newAnswer) => {
-    const { answers, currentQuestionIndex } = get();
-    answers[currentQuestionIndex] = newAnswer;
-    set({ answers });
+    const { learnerAnswers, currentQuestionIndex } = get();
+    learnerAnswers[currentQuestionIndex] = newAnswer;
+    set({ learnerAnswers });
   },
   nextQuestion: () => {
     const { questions, currentQuestionIndex, totalQuestion, isCompleted } = get();
@@ -72,7 +72,7 @@ export default function useLesson(lessonId: string) {
     nextQuestion,
     totalQuestion,
     currentQuestion,
-    answers,
+    learnerAnswers,
     answerQuestion,
     currentQuestionIndex,
     clear
@@ -91,7 +91,7 @@ export default function useLesson(lessonId: string) {
     nextQuestion,
     answerQuestion,
     totalQuestion,
-    answers,
+    learnerAnswers,
     clear,
     currentQuestion,
     currentQuestionIndex,

@@ -1,5 +1,5 @@
 import { EnumBandScore, EnumRole } from "./enums";
-import { EnumQuestion } from "./types/questions";
+import { EnumContentType } from "./types/questions";
 
 export const bandScores = {
   [EnumBandScore.PRE_IELTS]: "Pre IELTS",
@@ -12,9 +12,8 @@ export const bandScores = {
 };
 
 export const CONTENT_TYPE_OPTIONS = [
-  { value: EnumQuestion.MultipleChoice, label: "Multiple choice" },
-  { value: EnumQuestion.FillInTheBlank, label: "Fill in the blanks" },
-  { value: EnumQuestion.Matching, label: "Matching" },
+  { value: EnumContentType.MultipleChoice, label: "Multiple choice" },
+  { value: EnumContentType.Matching, label: "Matching" },
 ];
 
 export const AUTHORIZATION: Record<PropertyKey, EnumRole> = {
