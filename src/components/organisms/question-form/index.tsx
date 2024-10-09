@@ -111,7 +111,6 @@ export default function QuestionForm({
             </FormItem>
           )}
         />
-        {/* <FormTextArea name="explanation" label="Explanation" /> */}
         <Button className="w-fit" disabled={disabledSubmit ?? false}>
           {defaultValues ? "Save changes" : "Create question"}
         </Button>

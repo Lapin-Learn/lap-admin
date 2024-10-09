@@ -55,3 +55,13 @@ export interface ILesson {
   order: number;
   bandScore: EnumBandScore;
 }
+
+export interface IInstruction {
+  id: string;
+  questionTypeId: number;
+  content: string;
+  imageId?: string | null;
+  audioId?: string | null;
+  image?: IBucket | null;
+  audio?: IBucket | null;
+}

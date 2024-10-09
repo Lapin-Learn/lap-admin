@@ -22,7 +22,8 @@ import { Route as AuthenticatedDailyLessonsIndexImport } from './routes/_authent
 import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
 import { Route as AuthenticatedQuestionsQuestionIdImport } from './routes/_authenticated/questions/$questionId'
 import { Route as AuthenticatedDailyLessonsLessonIdImport } from './routes/_authenticated/daily-lessons/$lessonId'
-import { Route as AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport } from './routes/_authenticated/daily-lessons/$questionTypeId/instructions'
+import { Route as AuthenticatedDailyLessonsQuestionTypeIdInstructionImport } from './routes/_authenticated/daily-lessons/$questionTypeId/instruction'
+import { Route as AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionImport } from './routes/_authenticated/daily-lessons/$questionTypeId/create-instruction'
 
 // Create/Update Routes
 
@@ -87,9 +88,15 @@ const AuthenticatedDailyLessonsLessonIdRoute =
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
-const AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute =
-  AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport.update({
-    path: '/daily-lessons/$questionTypeId/instructions',
+const AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute =
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionImport.update({
+    path: '/daily-lessons/$questionTypeId/instruction',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute =
+  AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionImport.update({
+    path: '/daily-lessons/$questionTypeId/create-instruction',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
@@ -174,11 +181,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_authenticated/daily-lessons/$questionTypeId/instructions': {
-      id: '/_authenticated/daily-lessons/$questionTypeId/instructions'
-      path: '/daily-lessons/$questionTypeId/instructions'
-      fullPath: '/daily-lessons/$questionTypeId/instructions'
-      preLoaderRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsImport
+    '/_authenticated/daily-lessons/$questionTypeId/create-instruction': {
+      id: '/_authenticated/daily-lessons/$questionTypeId/create-instruction'
+      path: '/daily-lessons/$questionTypeId/create-instruction'
+      fullPath: '/daily-lessons/$questionTypeId/create-instruction'
+      preLoaderRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/daily-lessons/$questionTypeId/instruction': {
+      id: '/_authenticated/daily-lessons/$questionTypeId/instruction'
+      path: '/daily-lessons/$questionTypeId/instruction'
+      fullPath: '/daily-lessons/$questionTypeId/instruction'
+      preLoaderRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionImport
       parentRoute: typeof AuthenticatedImport
     }
   }
@@ -194,7 +208,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDailyLessonsIndexRoute: typeof AuthenticatedDailyLessonsIndexRoute
   AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
-  AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
+  AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute: typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -206,8 +221,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDailyLessonsIndexRoute: AuthenticatedDailyLessonsIndexRoute,
   AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
-  AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute:
-    AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute,
+  AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute:
+    AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute,
+  AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute:
+    AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -239,7 +256,8 @@ export interface FileRoutesByFullPath {
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
+  '/daily-lessons/$questionTypeId/create-instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute
+  '/daily-lessons/$questionTypeId/instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute
 }
 
 export interface FileRoutesByTo {
@@ -253,7 +271,8 @@ export interface FileRoutesByTo {
   '/daily-lessons': typeof AuthenticatedDailyLessonsIndexRoute
   '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
+  '/daily-lessons/$questionTypeId/create-instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute
+  '/daily-lessons/$questionTypeId/instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute
 }
 
 export interface FileRoutesById {
@@ -269,7 +288,8 @@ export interface FileRoutesById {
   '/_authenticated/daily-lessons/': typeof AuthenticatedDailyLessonsIndexRoute
   '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
-  '/_authenticated/daily-lessons/$questionTypeId/instructions': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionsRoute
+  '/_authenticated/daily-lessons/$questionTypeId/create-instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdCreateInstructionRoute
+  '/_authenticated/daily-lessons/$questionTypeId/instruction': typeof AuthenticatedDailyLessonsQuestionTypeIdInstructionRoute
 }
 
 export interface FileRouteTypes {
@@ -285,7 +305,8 @@ export interface FileRouteTypes {
     | '/daily-lessons'
     | '/questions'
     | '/users'
-    | '/daily-lessons/$questionTypeId/instructions'
+    | '/daily-lessons/$questionTypeId/create-instruction'
+    | '/daily-lessons/$questionTypeId/instruction'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -298,7 +319,8 @@ export interface FileRouteTypes {
     | '/daily-lessons'
     | '/questions'
     | '/users'
-    | '/daily-lessons/$questionTypeId/instructions'
+    | '/daily-lessons/$questionTypeId/create-instruction'
+    | '/daily-lessons/$questionTypeId/instruction'
   id:
     | '__root__'
     | '/_authenticated'
@@ -312,7 +334,8 @@ export interface FileRouteTypes {
     | '/_authenticated/daily-lessons/'
     | '/_authenticated/questions/'
     | '/_authenticated/users/'
-    | '/_authenticated/daily-lessons/$questionTypeId/instructions'
+    | '/_authenticated/daily-lessons/$questionTypeId/create-instruction'
+    | '/_authenticated/daily-lessons/$questionTypeId/instruction'
   fileRoutesById: FileRoutesById
 }
 
@@ -352,7 +375,8 @@ export const routeTree = rootRoute
         "/_authenticated/daily-lessons/",
         "/_authenticated/questions/",
         "/_authenticated/users/",
-        "/_authenticated/daily-lessons/$questionTypeId/instructions"
+        "/_authenticated/daily-lessons/$questionTypeId/create-instruction",
+        "/_authenticated/daily-lessons/$questionTypeId/instruction"
       ]
     },
     "/_authentication": {
@@ -398,8 +422,12 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/users/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_authenticated/daily-lessons/$questionTypeId/instructions": {
-      "filePath": "_authenticated/daily-lessons/$questionTypeId/instructions.tsx",
+    "/_authenticated/daily-lessons/$questionTypeId/create-instruction": {
+      "filePath": "_authenticated/daily-lessons/$questionTypeId/create-instruction.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/daily-lessons/$questionTypeId/instruction": {
+      "filePath": "_authenticated/daily-lessons/$questionTypeId/instruction.tsx",
       "parent": "/_authenticated"
     }
   }

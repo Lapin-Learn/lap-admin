@@ -12,6 +12,7 @@ import {
   useGetLessonsOfQuestionType,
   useUpdateQuestionType,
 } from "@/hooks/react-query/useDailyLessons";
+import { useGetInstruction } from "@/hooks/react-query/useInstructions";
 import { IQuestionType } from "@/lib/interfaces";
 
 import ChangeImageDialog from "../change-image-dialog";
@@ -22,6 +23,7 @@ export default function QuestionTypeDetail() {
   const { questionType: questionTypeId, skill } = useSearch({ strict: false });
   const questionType: IQuestionType | null = useFindQuestionType(questionTypeId, skill);
   const { data: lessons } = useGetLessonsOfQuestionType(questionTypeId);
+  const { data: instruction, isSuccess } = useGetInstruction(questionTypeId);
   const createBucket = useCreateBucket();
   const updateBucket = useUpdateBucket();
   const [imageUrl, setImageUrl] = useState(questionType?.image?.url || "");
@@ -88,9 +90,19 @@ export default function QuestionTypeDetail() {
               </p>
             </div>
             <div className="mt-4 flex flex-row gap-4">
-              <Link to={`${questionTypeId}/instructions`}>
-                <Button variant="secondary">View instructions</Button>
-              </Link>
+              {isSuccess && (
+                <>
+                  {instruction ? (
+                    <Link to={`${questionTypeId}/instruction`}>
+                      <Button variant="secondary">View instruction</Button>
+                    </Link>
+                  ) : (
+                    <Link to={`${questionTypeId}/create-instruction`}>
+                      <Button variant="secondary">Create instruction</Button>
+                    </Link>
+                  )}
+                </>
+              )}
               <Button variant="secondary">Import lessons</Button>
             </div>
           </div>
